@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>林野火災気象条件 自動判定ツール</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>気象条件自動判定システム</h1>
+            <p class="subtitle">北九州市消防局 内部利用 (八幡観測所基準)</p>
+        </header>
+
+        <main>
+            <div id="result-card" class="card result-card loading">
+                <h2>本日の判定結果</h2>
+                <div class="status-display">
+                    <span id="status-icon">Checking...</span>
+                    <span id="status-text">データ取得中</span>
+                </div>
+                <div class="timestamp">更新日時: <span id="updated-at">--</span></div>
+            </div>
+
+            <div class="details-grid">
+                <div class="card detail-card">
+                    <h3>降水量 (八幡)</h3>
+                    <div class="data-row">
+                        <span>前3日 (確定値)</span>
+                        <span class="value" id="p3d-val">-- mm</span>
+                    </div>
+                    <div class="data-row">
+                        <span>前30日 (速報値)</span>
+                        <span class="value" id="p30d-val">-- mm</span>
+                    </div>
+                </div>
+
+                <div class="card detail-card">
+                    <h3>気象注意報 (北九州市)</h3>
+                    <div class="data-row">
+                        <span>乾燥注意報</span>
+                        <span class="value" id="dry-val">--</span>
+                    </div>
+                    <div class="data-row">
+                        <span>強風注意報</span>
+                        <span class="value" id="wind-val">--</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="notice-box">
+                <p><strong>【判定基準】</strong><br>
+                    ・<strong>注意レベル</strong>: (前3日雨量≤1mm かつ 前30日雨量≤30mm) または (前3日雨量≤1mm かつ 乾燥注意報発表中)<br>
+                    ・<strong>警報レベル</strong>: 注意レベル かつ 強風注意報発表中
+                </p>
+                <p class="small">※本システムは気象庁公式データを基に自動判定していますが、最終的な判断は各署所の運用に従ってください。</p>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('data.json')
+                .then(response => {
+                    if (!response.ok) throw new Error("Data not found");
+                    return response.json();
+                })
+                .then(data => {
+                    updateUI(data);
+                })
+                .catch(error => {
+                    console.warn('Fetch error:', error);
+                    document.getElementById('status-text').textContent = "データ読込失敗";
+                });
+        });
+
+        function updateUI(data) {
+            const resultCard = document.getElementById('result-card');
+            const statusText = document.getElementById('status-text');
+            const statusIcon = document.getElementById('status-icon');
+
+            // Update Timestamp
+            document.getElementById('updated-at').textContent = data.updated_at;
+
+            // Update Result
+            resultCard.classList.remove('loading');
+            resultCard.classList.remove('level-0', 'level-1', 'level-2');
+            resultCard.classList.add(`level-${data.level}`);
+
+            statusText.textContent = data.result_text;
+
+            if (data.level === 0) {
+                statusIcon.textContent = "✔";
+            } else if (data.level === 1) {
+                statusIcon.textContent = "⚠";
+            } else if (data.level === 2) {
+                statusIcon.textContent = "🚨";
+            }
+
+            // Update Details
+            // P3D
+            const p3d = parseFloat(data.p3d).toFixed(1);
+            document.getElementById('p3d-val').textContent = `${p3d} mm`;
+            if (parseFloat(data.p3d) <= 1.0) {
+                document.getElementById('p3d-val').classList.add('alert-val');
+            }
+
+            // P30D
+            const p30d = parseFloat(data.p30d).toFixed(1);
+            document.getElementById('p30d-val').textContent = `${p30d} mm`;
+            if (parseFloat(data.p30d) <= 30.0) {
+                document.getElementById('p30d-val').classList.add('alert-val');
+            }
+
+            setBooleanStatus('dry-val', data.is_dry);
+            setBooleanStatus('wind-val', data.is_strong_wind);
+        }
+
+        function setBooleanStatus(id, value) {
+            const el = document.getElementById(id);
+            if (value) {
+                el.textContent = "発表中";
+                el.classList.add('active-warning');
+            } else {
+                el.textContent = "なし";
+                el.classList.remove('active-warning');
+            }
+        }
+    </script>
+</body>
+
+</html>

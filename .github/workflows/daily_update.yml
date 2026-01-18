@@ -1,0 +1,39 @@
+name: Daily Weather Check
+
+on:
+  schedule:
+    # 毎日 8:30 JST = 前日 23:30 UTC
+    - cron: '30 23 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: |
+        pip install requests beautifulsoup4 pytz
+
+    - name: Run logic
+      run: |
+        python src/main.py
+
+    - name: Commit and Push changes
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add docs/data.json data/history.csv
+        git commit -m "Update weather data" || exit 0
+        git push
