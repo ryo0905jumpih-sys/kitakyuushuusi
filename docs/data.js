@@ -1,4 +1,4 @@
-{
+window.WEATHER_DATA = {
   "updated_at": "2026-01-19 05:53",
   "level": 1,
   "result_text": "注意レベル",
@@ -7,4 +7,4 @@
   "is_dry": false,
   "is_strong_wind": false,
   "notes": "前3日=八幡確定値, 前30日=速報値(八幡)"
-}
+};

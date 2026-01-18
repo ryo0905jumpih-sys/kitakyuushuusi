@@ -64,20 +64,27 @@
         </main>
     </div>
 
+    <script src="data.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            fetch('data.json')
-                .then(response => {
-                    if (!response.ok) throw new Error("Data not found");
-                    return response.json();
-                })
-                .then(data => {
-                    updateUI(data);
-                })
-                .catch(error => {
-                    console.warn('Fetch error:', error);
-                    document.getElementById('status-text').textContent = "データ読込失敗";
-                });
+            if (window.WEATHER_DATA) {
+                updateUI(window.WEATHER_DATA);
+            } else {
+                // Fallback for server environment if data.js not present, or just show error
+                fetch('data.json')
+                    .then(response => {
+                        if (!response.ok) throw new Error("Data not found");
+                        return response.json();
+                    })
+                    .then(data => {
+                        updateUI(data);
+                    })
+                    .catch(error => {
+                        console.warn('Fetch error:', error);
+                        document.getElementById('status-text').textContent = "データ読込失敗(ローカル規制)";
+                        document.getElementById('status-icon').textContent = "❌";
+                    });
+            }
         });
 
         function updateUI(data) {

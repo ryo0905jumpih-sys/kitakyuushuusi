@@ -246,6 +246,12 @@ def main():
     os.makedirs(os.path.dirname(DATA_FILE), exist_ok=True)
     with open(DATA_FILE, 'w', encoding='utf-8') as f:
         json.dump(output_data, f, ensure_ascii=False, indent=2)
+
+    # Also save as JS for local viewing (bypasses CORS)
+    js_file = os.path.join(os.path.dirname(DATA_FILE), 'data.js')
+    with open(js_file, 'w', encoding='utf-8') as f:
+        json_str = json.dumps(output_data, ensure_ascii=False, indent=2)
+        f.write(f"window.WEATHER_DATA = {json_str};")
         
     os.makedirs(os.path.dirname(HISTORY_FILE), exist_ok=True)
     file_exists = os.path.isfile(HISTORY_FILE)
