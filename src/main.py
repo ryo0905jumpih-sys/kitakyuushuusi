@@ -9,42 +9,37 @@ import re
 import sys
 
 # Constants
-# 3-day data source (Daily Confirmed) - Using daily_a1.php as reliable source
-AMEDAS_DAILY_URL = "https://www.data.jma.go.jp/obd/stats/etrn/view/daily_a1.php?prec_no=82&block_no=0856&year={year}&month={month}&day=&view="
-# Note: block_no=0856 is the standard mapping for 82056 in daily_a1.php
-TARGET_STATION_CODE = "82056"
+# 3-day data source (Daily Confirmed)
+# Target: Fukuoka (as it is the main Hakata station) -> block_no=47807
+TARGET_CITY_NAME = "博多"
+TARGET_STATION_PREF = "82"
+TARGET_STATION_BLOCK = "47807" # Fukuoka (Central Station for Hakata area)
+
+DATA_FILE = "docs/data.json"
+HISTORY_FILE = "data/history.csv"
 # URL for 30-day data (Preliminary)
 TENKOU_URL = "https://www.data.jma.go.jp/stats/data/mdrr/tenkou/alltable/pre00.html"
 # Advisories
 WARNING_JSON_URL = "https://www.jma.go.jp/bosai/warning/data/warning/400000.json"
 AREA_CODE_KITAKYUSHU = "4010100"
 
-DATA_FILE = "docs/data.json"
-HISTORY_FILE = "data/history.csv"
-
 def get_confirmed_3day_precip():
     """
     Calculates the total precipitation for the last 3 FULL days.
-    Primary Target: Yahata (82056) -> block_no=0780 (Verified)
-    Fallback Target: Fukuoka (47807) -> block_no=47807 (if Yahata fails)
+    Primary Target: Fukuoka (47807) -> s1 (Station)
     """
     today = datetime.datetime.now(pytz.timezone('Asia/Tokyo')).date()
     yesterday = today - datetime.timedelta(days=1)
     target_dates = [yesterday, yesterday - datetime.timedelta(days=1), yesterday - datetime.timedelta(days=2)]
     
-    # Check Yahata first
-    total_yahata, map_yahata, success_yahata = fetch_precip_from_jma(target_dates, '82', '0780', 'a1')
+    # Check Fukuoka (Hakata Main)
+    total, map_data, success = fetch_precip_from_jma(target_dates, '82', '47807', 's1')
     
-    if success_yahata:
-        print("Using Yahata data.")
-        return total_yahata, "八幡"
+    if success:
+        print("Using Hakata(Fukuoka) data.")
+        return total, "博多"
     else:
-        print("Yahata data unavailable/empty. Falling back to Fukuoka (47807).")
-        total_fukuoka, map_fukuoka, success_fukuoka = fetch_precip_from_jma(target_dates, '82', '47807', 's1')
-        if success_fukuoka:
-            return total_fukuoka, "福岡(代替)"
-        else:
-            return 0.0, "取得失敗"
+        return 0.0, "取得失敗"
 
 def fetch_precip_from_jma(target_dates, prec_no, block_no, page_type='a1'):
     months_needed = sorted(list(set([(d.year, d.month) for d in target_dates])), reverse=True)
@@ -73,16 +68,11 @@ def fetch_precip_from_jma(target_dates, prec_no, block_no, page_type='a1'):
                     if not d_text.isdigit(): continue
                     d_day = int(d_text)
                     
-                    # Col Index varies by page type
-                    # a1 (AMeDAS): Day, Precip, ... -> Precip is Col 1
-                    # s1 (Station): Day, Press, Press, Precip, ... -> Precip is Col 3 usually
-                    
                     val = 0.0
                     col_idx = 1 if page_type == 'a1' else 3
                     
                     if len(cols) > col_idx:
                         d_val_text = cols[col_idx].text.strip()
-                        # Handle "--", "///", "0.0)", etc
                         if d_val_text in ["--", "///"]:
                             val = 0.0
                         elif d_val_text == "0.0)":
@@ -112,50 +102,44 @@ def fetch_precip_from_jma(target_dates, prec_no, block_no, page_type='a1'):
 
 def get_preliminary_30day_precip():
     """
-    Fetches the 30-day total precipitation for Yahata, Fukuoka.
-    Target: Yahata (82056) from pre00.html
+    Fetches the 30-day total precipitation for Hakata.
+    Target: 博多 from pre00.html
     """
-    print(f"Fetching: {TENKOU_URL}")
+    print(f"Fetching preliminary data from: {TENKOU_URL}")
     try:
         resp = requests.get(TENKOU_URL, timeout=15)
         resp.encoding = resp.apparent_encoding
         soup = BeautifulSoup(resp.text, 'html.parser')
         
-        # Step 1: Find the target column index for "前30日間合計"
-        # The table has multiple "合計" columns for different periods.
-        target_col_idx = 6 # Default fallback for index 6 in data row
+        # Determine column index for "前30日間合計"
+        target_col_idx = 6 
         for tr in soup.find_all('tr'):
             h_txts = [c.get_text(strip=True) for c in tr.find_all(['th', 'td'])]
             if '前30日間合計' in h_txts:
-                # Basic mapping: Index 2(10d)->2, Index 3(20d)->4, Index 4(30d)->6
                 h_idx = h_txts.index('前30日間合計')
                 target_col_idx = (h_idx - 2) * 2 + 2
-                print(f"Header found at index {h_idx}. Data column target: {target_col_idx}")
                 break
         
-        # Step 2: Search for the Yahata (Fukuoka) row
+        # Scan for 博多 row
         for row in soup.find_all('tr'):
             cols = row.find_all(['th', 'td'])
             txts = [c.get_text(strip=True) for c in cols]
             if len(txts) < 2: continue
             
-            # Row structure: [Pref, City, 10dVal, 10dRatio, 20dVal, 20dRatio, 30dVal, 30dRatio, ...]
-            pref = txts[0]
             city = txts[1]
-            
-            if "八幡" in city and ("福岡" in pref or "福岡" in city or "北九州" in pref or "北九州" in city):
-                print(f"Matching Yahata Row: {txts}")
+            if city == "博多":
+                print(f"Matching Hakata Row: {txts}")
                 if len(txts) > target_col_idx:
                     val_str = txts[target_col_idx]
-                    # Extract only digits and decimal point
                     clean_val = re.sub(r'[^0-9.]', '', val_str)
                     if clean_val:
                         return float(clean_val)
+                break
+                        
         return 0.0
     except Exception as e:
-        print(f"Error in get_preliminary_30day_precip: {e}")
+        print(f"Error: {e}")
         return 0.0
-
 
 def get_advisories():
     is_dry = False
@@ -181,20 +165,18 @@ def get_advisories():
                     if code == '14': is_dry = True
                     if code == '06': is_strong_wind = True
     except Exception as e:
-        print(f"Error checking advisories: {e}")
+        print(f"Error: {e}")
     return is_dry, is_strong_wind
 
 def main():
-    # Fix output encoding for Windows terminal if needed
     sys.stdout.reconfigure(encoding='utf-8')
-    
-    print("--- Weather Condition Auto Judgment ---")
+    print("--- Weather Condition Auto Judgment (Hakata Mode) ---")
     current_time = datetime.datetime.now(pytz.timezone('Asia/Tokyo'))
     print(f"Execution Time: {current_time}")
 
     p3d, p3d_source = get_confirmed_3day_precip()
     p30d = get_preliminary_30day_precip()
-    print(f"Precipitation: 3-Day({p3d_source})={p3d}mm, 30-Day(Preliminary)={p30d}mm")
+    print(f"Precipitation: 3-Day({p3d_source})={p3d}mm, 30-Day={p30d}mm")
     
     is_dry, is_strong_wind = get_advisories()
     print(f"Advisories: Dry={is_dry}, StrongWind={is_strong_wind}")
@@ -224,14 +206,13 @@ def main():
         "p30d": p30d,
         "is_dry": is_dry,
         "is_strong_wind": is_strong_wind,
-        "notes": f"前3日={p3d_source}確定値, 前30日=速報値(八幡)"
+        "notes": f"前3日={p3d_source}確定値, 前30日=確定値(博多)"
     }
     
     os.makedirs(os.path.dirname(DATA_FILE), exist_ok=True)
     with open(DATA_FILE, 'w', encoding='utf-8') as f:
         json.dump(output_data, f, ensure_ascii=False, indent=2)
 
-    # Also save as JS for local viewing (bypasses CORS)
     js_file = os.path.join(os.path.dirname(DATA_FILE), 'data.js')
     with open(js_file, 'w', encoding='utf-8') as f:
         json_str = json.dumps(output_data, ensure_ascii=False, indent=2)
@@ -248,7 +229,6 @@ def main():
             current_time.strftime('%H:%M'),
             level, p3d, p30d, is_dry, is_strong_wind, result_text, p3d_source
         ])
-
 
 if __name__ == "__main__":
     main()
