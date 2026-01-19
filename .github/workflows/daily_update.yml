@@ -24,16 +24,47 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pip install requests beautifulsoup4 pytz
+        pip install requests beautifulsoup4 pytz playwright
+        playwright install chromium --with-deps
 
     - name: Run logic
       run: |
         python src/main.py
 
+    - name: Generate Screenshot and Env
+      run: |
+        python src/screenshot.py
+
     - name: Commit and Push changes
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git add docs/data.json data/history.csv
-        git commit -m "Update weather data" || exit 0
+        git add docs/data.json docs/data.js data/history.csv
+        git commit -m "Update weather data and screenshot" || exit 0
         git push
+
+    - name: Send mail
+      if: success()
+      uses: dawidd6/action-send-mail@v3
+      with:
+        # 以下のシークレットはGitHubの「Settings > Secrets and variables > Actions」で設定が必要です
+        server_address: ${{secrets.MAIL_SERVER}}
+        server_port: ${{secrets.MAIL_PORT}}
+        username: ${{secrets.MAIL_USERNAME}}
+        password: ${{secrets.MAIL_PASSWORD}}
+        subject: 【林野火災条件判定値】${{env.RESULT_TEXT}} (${{env.UPDATED_AT}})
+        to: shou-yobou@city.kitakyushu.lg.jp
+        from: 林野火災予報自動判定システム <${{secrets.MAIL_USERNAME}}>
+        body: |
+          関係各位
+          
+          林野火災気象条件の自動判定結果をお知らせします。
+          
+          ■判定日時: ${{env.UPDATED_AT}}
+          ■判定結果: 【${{env.RESULT_TEXT}}】
+          
+          詳細なデータおよび過去の履歴については、以下のWEBサイトをご確認ください。
+          URL: https://ryo0905jumpih-sys.github.io/kitakyuushuusi/
+          
+          ※このメールはシステムからの自動送信です。
+        attachments: screenshot.png
