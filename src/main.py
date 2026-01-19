@@ -10,10 +10,10 @@ import sys
 
 # Constants
 # 3-day data source (Daily Confirmed)
-# Target: Fukuoka (as it is the main Hakata station) -> block_no=47807
-TARGET_CITY_NAME = "博多"
+# Target: Yahata -> block_no=0780 (AMeDAS)
+TARGET_STATION_NAME = "八幡"
 TARGET_STATION_PREF = "82"
-TARGET_STATION_BLOCK = "47807" # Fukuoka (Central Station for Hakata area)
+TARGET_STATION_BLOCK = "0780"
 
 DATA_FILE = "docs/data.json"
 HISTORY_FILE = "data/history.csv"
@@ -25,20 +25,23 @@ AREA_CODE_KITAKYUSHU = "4010100"
 
 def get_confirmed_3day_precip():
     """
-    Calculates the total precipitation for the last 3 FULL days.
-    Primary Target: Fukuoka (47807) -> s1 (Station)
+    Calculates the total precipitation for the last 3 FULL days for Yahata.
     """
     today = datetime.datetime.now(pytz.timezone('Asia/Tokyo')).date()
     yesterday = today - datetime.timedelta(days=1)
     target_dates = [yesterday, yesterday - datetime.timedelta(days=1), yesterday - datetime.timedelta(days=2)]
     
-    # Check Fukuoka (Hakata Main)
-    total, map_data, success = fetch_precip_from_jma(target_dates, '82', '47807', 's1')
+    total, map_data, success = fetch_precip_from_jma(target_dates, '82', '0780', 'a1')
     
     if success:
-        print("Using Hakata(Fukuoka) data.")
-        return total, "博多"
+        print("Using Yahata data.")
+        return total, "八幡"
     else:
+        # Fallback to Fukuoka if Yahata fails
+        print("Yahata data unavailable. Falling back to Fukuoka.")
+        total_f, map_f, success_f = fetch_precip_from_jma(target_dates, '82', '47807', 's1')
+        if success_f:
+            return total_f, "福岡(代替)"
         return 0.0, "取得失敗"
 
 def fetch_precip_from_jma(target_dates, prec_no, block_no, page_type='a1'):
@@ -102,8 +105,7 @@ def fetch_precip_from_jma(target_dates, prec_no, block_no, page_type='a1'):
 
 def get_preliminary_30day_precip():
     """
-    Fetches the 30-day total precipitation for Hakata.
-    Target: 博多 from pre00.html
+    Fetches the 30-day total precipitation for Yahata, Fukuoka.
     """
     print(f"Fetching preliminary data from: {TENKOU_URL}")
     try:
@@ -118,17 +120,20 @@ def get_preliminary_30day_precip():
             if '前30日間合計' in h_txts:
                 h_idx = h_txts.index('前30日間合計')
                 target_col_idx = (h_idx - 2) * 2 + 2
+                print(f"Found 30-day header. Data column: {target_col_idx}")
                 break
         
-        # Scan for 博多 row
         for row in soup.find_all('tr'):
             cols = row.find_all(['th', 'td'])
             txts = [c.get_text(strip=True) for c in cols]
             if len(txts) < 2: continue
             
+            pref = txts[0]
             city = txts[1]
-            if city == "博多":
-                print(f"Matching Hakata Row: {txts}")
+            
+            # Match "八幡" in Fukuoka prefecture
+            if city == "八幡" and "福岡" in pref:
+                print(f"Matching Yahata Row: {txts}")
                 if len(txts) > target_col_idx:
                     val_str = txts[target_col_idx]
                     clean_val = re.sub(r'[^0-9.]', '', val_str)
@@ -165,12 +170,12 @@ def get_advisories():
                     if code == '14': is_dry = True
                     if code == '06': is_strong_wind = True
     except Exception as e:
-        print(f"Error: {e}")
+        print(f"Error checking advisories: {e}")
     return is_dry, is_strong_wind
 
 def main():
     sys.stdout.reconfigure(encoding='utf-8')
-    print("--- Weather Condition Auto Judgment (Hakata Mode) ---")
+    print("--- Weather Condition Auto Judgment (Back to Yahata) ---")
     current_time = datetime.datetime.now(pytz.timezone('Asia/Tokyo'))
     print(f"Execution Time: {current_time}")
 
@@ -206,7 +211,7 @@ def main():
         "p30d": p30d,
         "is_dry": is_dry,
         "is_strong_wind": is_strong_wind,
-        "notes": f"前3日={p3d_source}確定値, 前30日=確定値(博多)"
+        "notes": f"前3日={p3d_source}確定値, 前30日=確定値(八幡)"
     }
     
     os.makedirs(os.path.dirname(DATA_FILE), exist_ok=True)
