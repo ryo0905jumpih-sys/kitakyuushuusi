@@ -1,0 +1,377 @@
+[
+  {
+    "area_code": "400010",
+    "warning_code": "15",
+    "status": "継続"
+  },
+  {
+    "area_code": "400010",
+    "warning_code": "16",
+    "status": "発表"
+  },
+  {
+    "area_code": "400020",
+    "warning_code": "15",
+    "status": "継続"
+  },
+  {
+    "area_code": "400020",
+    "warning_code": "16",
+    "status": "発表"
+  },
+  {
+    "area_code": "400030",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "400040",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "4010000",
+    "warning_code": "15",
+    "status": "継続"
+  },
+  {
+    "area_code": "4010000",
+    "warning_code": "16",
+    "status": "発表"
+  },
+  {
+    "area_code": "4013000",
+    "warning_code": "15",
+    "status": "継続"
+  },
+  {
+    "area_code": "4013000",
+    "warning_code": "16",
+    "status": "発表"
+  },
+  {
+    "area_code": "4020200",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "4020300",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "4020400",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "4020500",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "4020600",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "4020700",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "4021000",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "4021100",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "4021200",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "4021300",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "4021400",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "4021500",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "4021600",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "4021700",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "4021800",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "4021900",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "4022000",
+    "warning_code": "15",
+    "status": "継続"
+  },
+  {
+    "area_code": "4022000",
+    "warning_code": "16",
+    "status": "発表"
+  },
+  {
+    "area_code": "4022100",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "4022300",
+    "warning_code": "15",
+    "status": "継続"
+  },
+  {
+    "area_code": "4022300",
+    "warning_code": "16",
+    "status": "発表"
+  },
+  {
+    "area_code": "4022400",
+    "warning_code": "15",
+    "status": "継続"
+  },
+  {
+    "area_code": "4022400",
+    "warning_code": "16",
+    "status": "発表"
+  },
+  {
+    "area_code": "4022500",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "4022600",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "4022700",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "4022800",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "4022900",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "4023000",
+    "warning_code": "15",
+    "status": "継続"
+  },
+  {
+    "area_code": "4023000",
+    "warning_code": "16",
+    "status": "発表"
+  },
+  {
+    "area_code": "4023100",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "4034100",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "4034200",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "4034300",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "4034400",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "4034500",
+    "warning_code": "15",
+    "status": "継続"
+  },
+  {
+    "area_code": "4034500",
+    "warning_code": "16",
+    "status": "発表"
+  },
+  {
+    "area_code": "4034800",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "4034900",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "4038100",
+    "warning_code": "15",
+    "status": "継続"
+  },
+  {
+    "area_code": "4038100",
+    "warning_code": "16",
+    "status": "発表"
+  },
+  {
+    "area_code": "4038200",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "4038300",
+    "warning_code": "15",
+    "status": "継続"
+  },
+  {
+    "area_code": "4038300",
+    "warning_code": "16",
+    "status": "発表"
+  },
+  {
+    "area_code": "4038400",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "4040100",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "4040200",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "4042100",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "4044700",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "4044800",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "4050300",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "4052200",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "4054400",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "4060100",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "4060200",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "4060400",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "4060500",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "4060800",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "4060900",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "4061000",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "4062100",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "4062500",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "4064200",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "4064600",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  },
+  {
+    "area_code": "4064700",
+    "warning_code": null,
+    "status": "発表警報・注意報はなし"
+  }
+]

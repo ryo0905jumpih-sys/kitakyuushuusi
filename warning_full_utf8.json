@@ -1,0 +1,2916 @@
+{
+  "reportDatetime": "2026-01-19T16:07:00+09:00",
+  "publishingOffice": "福岡管区気象台",
+  "headlineText": "福岡、北九州地方では、強風や高波に注意してください。",
+  "areaTypes": [
+    {
+      "areas": [
+        {
+          "code": "400010",
+          "warnings": [
+            {
+              "code": "15",
+              "status": "継続"
+            },
+            {
+              "code": "16",
+              "status": "発表"
+            }
+          ]
+        },
+        {
+          "code": "400020",
+          "warnings": [
+            {
+              "code": "15",
+              "status": "継続"
+            },
+            {
+              "code": "16",
+              "status": "発表"
+            }
+          ]
+        },
+        {
+          "code": "400030",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        },
+        {
+          "code": "400040",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "areas": [
+        {
+          "code": "4010000",
+          "warnings": [
+            {
+              "code": "15",
+              "status": "継続"
+            },
+            {
+              "code": "16",
+              "status": "発表"
+            }
+          ]
+        },
+        {
+          "code": "4013000",
+          "warnings": [
+            {
+              "code": "15",
+              "status": "継続"
+            },
+            {
+              "code": "16",
+              "status": "発表"
+            }
+          ]
+        },
+        {
+          "code": "4020200",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        },
+        {
+          "code": "4020300",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        },
+        {
+          "code": "4020400",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        },
+        {
+          "code": "4020500",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        },
+        {
+          "code": "4020600",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        },
+        {
+          "code": "4020700",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        },
+        {
+          "code": "4021000",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        },
+        {
+          "code": "4021100",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        },
+        {
+          "code": "4021200",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        },
+        {
+          "code": "4021300",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        },
+        {
+          "code": "4021400",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        },
+        {
+          "code": "4021500",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        },
+        {
+          "code": "4021600",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        },
+        {
+          "code": "4021700",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        },
+        {
+          "code": "4021800",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        },
+        {
+          "code": "4021900",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        },
+        {
+          "code": "4022000",
+          "warnings": [
+            {
+              "code": "15",
+              "status": "継続"
+            },
+            {
+              "code": "16",
+              "status": "発表"
+            }
+          ]
+        },
+        {
+          "code": "4022100",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        },
+        {
+          "code": "4022300",
+          "warnings": [
+            {
+              "code": "15",
+              "status": "継続"
+            },
+            {
+              "code": "16",
+              "status": "発表"
+            }
+          ]
+        },
+        {
+          "code": "4022400",
+          "warnings": [
+            {
+              "code": "15",
+              "status": "継続"
+            },
+            {
+              "code": "16",
+              "status": "発表"
+            }
+          ]
+        },
+        {
+          "code": "4022500",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        },
+        {
+          "code": "4022600",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        },
+        {
+          "code": "4022700",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        },
+        {
+          "code": "4022800",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        },
+        {
+          "code": "4022900",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        },
+        {
+          "code": "4023000",
+          "warnings": [
+            {
+              "code": "15",
+              "status": "継続"
+            },
+            {
+              "code": "16",
+              "status": "発表"
+            }
+          ]
+        },
+        {
+          "code": "4023100",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        },
+        {
+          "code": "4034100",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        },
+        {
+          "code": "4034200",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        },
+        {
+          "code": "4034300",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        },
+        {
+          "code": "4034400",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        },
+        {
+          "code": "4034500",
+          "warnings": [
+            {
+              "code": "15",
+              "status": "継続"
+            },
+            {
+              "code": "16",
+              "status": "発表"
+            }
+          ]
+        },
+        {
+          "code": "4034800",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        },
+        {
+          "code": "4034900",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        },
+        {
+          "code": "4038100",
+          "warnings": [
+            {
+              "code": "15",
+              "status": "継続"
+            },
+            {
+              "code": "16",
+              "status": "発表"
+            }
+          ]
+        },
+        {
+          "code": "4038200",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        },
+        {
+          "code": "4038300",
+          "warnings": [
+            {
+              "code": "15",
+              "status": "継続"
+            },
+            {
+              "code": "16",
+              "status": "発表"
+            }
+          ]
+        },
+        {
+          "code": "4038400",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        },
+        {
+          "code": "4040100",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        },
+        {
+          "code": "4040200",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        },
+        {
+          "code": "4042100",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        },
+        {
+          "code": "4044700",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        },
+        {
+          "code": "4044800",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        },
+        {
+          "code": "4050300",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        },
+        {
+          "code": "4052200",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        },
+        {
+          "code": "4054400",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        },
+        {
+          "code": "4060100",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        },
+        {
+          "code": "4060200",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        },
+        {
+          "code": "4060400",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        },
+        {
+          "code": "4060500",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        },
+        {
+          "code": "4060800",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        },
+        {
+          "code": "4060900",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        },
+        {
+          "code": "4061000",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        },
+        {
+          "code": "4062100",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        },
+        {
+          "code": "4062500",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        },
+        {
+          "code": "4064200",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        },
+        {
+          "code": "4064600",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        },
+        {
+          "code": "4064700",
+          "warnings": [
+            {
+              "status": "発表警報・注意報はなし"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "timeSeries": [
+    {
+      "timeDefines": [
+        "2026-01-19T15:00:00+09:00",
+        "2026-01-19T18:00:00+09:00",
+        "2026-01-19T21:00:00+09:00",
+        "2026-01-20T00:00:00+09:00",
+        "2026-01-20T03:00:00+09:00",
+        "2026-01-20T06:00:00+09:00",
+        "2026-01-20T09:00:00+09:00",
+        "2026-01-20T12:00:00+09:00",
+        "2026-01-20T15:00:00+09:00"
+      ],
+      "areaTypes": [
+        {
+          "areas": [
+            {
+              "code": "400010",
+              "warnings": [
+                {
+                  "code": "15",
+                  "levels": [
+                    {
+                      "type": "風危険度",
+                      "localAreas": [
+                        {
+                          "localAreaName": "海上",
+                          "values": [
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10"
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "continueLevels": [
+                    {
+                      "type": "風危険度",
+                      "localAreas": [
+                        {
+                          "localAreaName": "海上",
+                          "value": "10"
+                        }
+                      ]
+                    }
+                  ],
+                  "properties": [
+                    {
+                      "type": "風向",
+                      "localAreas": [
+                        {
+                          "localAreaName": "海上",
+                          "windDirections": [
+                            {
+                              "condition": ""
+                            },
+                            {
+                              "condition": ""
+                            },
+                            {
+                              "condition": ""
+                            },
+                            {
+                              "condition": ""
+                            },
+                            {
+                              "condition": ""
+                            },
+                            {
+                              "condition": ""
+                            },
+                            {
+                              "condition": ""
+                            },
+                            {
+                              "condition": ""
+                            },
+                            {
+                              "condition": ""
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "最大風速",
+                      "localAreas": [
+                        {
+                          "localAreaName": "海上",
+                          "values": [
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12"
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "16",
+                  "levels": [
+                    {
+                      "type": "波危険度",
+                      "localAreas": [
+                        {
+                          "values": [
+                            "00",
+                            "00",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10"
+                          ],
+                          "additions": [
+                            "うねり"
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "continueLevels": [
+                    {
+                      "type": "波危険度",
+                      "localAreas": [
+                        {
+                          "value": "10"
+                        }
+                      ]
+                    }
+                  ],
+                  "properties": [
+                    {
+                      "type": "波高",
+                      "localAreas": [
+                        {
+                          "values": [
+                            "2",
+                            "2",
+                            "2.5",
+                            "2.5",
+                            "2.5",
+                            "3",
+                            "3",
+                            "3",
+                            "3"
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "code": "400020",
+              "warnings": [
+                {
+                  "code": "15",
+                  "levels": [
+                    {
+                      "type": "風危険度",
+                      "localAreas": [
+                        {
+                          "localAreaName": "海上",
+                          "values": [
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10"
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "continueLevels": [
+                    {
+                      "type": "風危険度",
+                      "localAreas": [
+                        {
+                          "localAreaName": "海上",
+                          "value": "10"
+                        }
+                      ]
+                    }
+                  ],
+                  "properties": [
+                    {
+                      "type": "風向",
+                      "localAreas": [
+                        {
+                          "localAreaName": "海上",
+                          "windDirections": [
+                            {
+                              "condition": ""
+                            },
+                            {
+                              "condition": ""
+                            },
+                            {
+                              "condition": ""
+                            },
+                            {
+                              "condition": ""
+                            },
+                            {
+                              "condition": ""
+                            },
+                            {
+                              "condition": ""
+                            },
+                            {
+                              "condition": ""
+                            },
+                            {
+                              "condition": ""
+                            },
+                            {
+                              "condition": ""
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "最大風速",
+                      "localAreas": [
+                        {
+                          "localAreaName": "海上",
+                          "values": [
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12"
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "16",
+                  "levels": [
+                    {
+                      "type": "波危険度",
+                      "localAreas": [
+                        {
+                          "values": [
+                            "00",
+                            "00",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10"
+                          ],
+                          "additions": [
+                            "うねり"
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "continueLevels": [
+                    {
+                      "type": "波危険度",
+                      "localAreas": [
+                        {
+                          "value": "10"
+                        }
+                      ]
+                    }
+                  ],
+                  "properties": [
+                    {
+                      "type": "波高",
+                      "localAreas": [
+                        {
+                          "values": [
+                            "2",
+                            "2",
+                            "2.5",
+                            "2.5",
+                            "2.5",
+                            "3",
+                            "3",
+                            "3",
+                            "3"
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "areas": [
+            {
+              "code": "4010000",
+              "warnings": [
+                {
+                  "code": "15",
+                  "levels": [
+                    {
+                      "type": "風危険度",
+                      "localAreas": [
+                        {
+                          "localAreaName": "響灘",
+                          "values": [
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10"
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "continueLevels": [
+                    {
+                      "type": "風危険度",
+                      "localAreas": [
+                        {
+                          "localAreaName": "響灘",
+                          "value": "10"
+                        }
+                      ]
+                    }
+                  ],
+                  "properties": [
+                    {
+                      "type": "風向",
+                      "localAreas": [
+                        {
+                          "localAreaName": "響灘",
+                          "windDirections": [
+                            {
+                              "value": "北西"
+                            },
+                            {
+                              "value": "北西"
+                            },
+                            {
+                              "value": "北西"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "最大風速",
+                      "localAreas": [
+                        {
+                          "localAreaName": "響灘",
+                          "values": [
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12"
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "16",
+                  "levels": [
+                    {
+                      "type": "波危険度",
+                      "localAreas": [
+                        {
+                          "localAreaName": "響灘",
+                          "values": [
+                            "00",
+                            "00",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10"
+                          ],
+                          "additions": [
+                            "うねり"
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "continueLevels": [
+                    {
+                      "type": "波危険度",
+                      "localAreas": [
+                        {
+                          "localAreaName": "響灘",
+                          "value": "10"
+                        }
+                      ]
+                    }
+                  ],
+                  "properties": [
+                    {
+                      "type": "波高",
+                      "localAreas": [
+                        {
+                          "localAreaName": "響灘",
+                          "values": [
+                            "2",
+                            "2",
+                            "2.5",
+                            "2.5",
+                            "2.5",
+                            "3",
+                            "3",
+                            "3",
+                            "3"
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "code": "4013000",
+              "warnings": [
+                {
+                  "code": "15",
+                  "levels": [
+                    {
+                      "type": "風危険度",
+                      "localAreas": [
+                        {
+                          "localAreaName": "玄界灘",
+                          "values": [
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10"
+                          ]
+                        },
+                        {
+                          "localAreaName": "沖ノ島周辺",
+                          "values": [
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10"
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "continueLevels": [
+                    {
+                      "type": "風危険度",
+                      "localAreas": [
+                        {
+                          "localAreaName": "玄界灘",
+                          "value": "10"
+                        },
+                        {
+                          "localAreaName": "沖ノ島周辺",
+                          "value": "10"
+                        }
+                      ]
+                    }
+                  ],
+                  "properties": [
+                    {
+                      "type": "風向",
+                      "localAreas": [
+                        {
+                          "localAreaName": "玄界灘",
+                          "windDirections": [
+                            {
+                              "value": "北西"
+                            },
+                            {
+                              "value": "北西"
+                            },
+                            {
+                              "value": "北西"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            }
+                          ]
+                        },
+                        {
+                          "localAreaName": "沖ノ島周辺",
+                          "windDirections": [
+                            {
+                              "value": "北西"
+                            },
+                            {
+                              "value": "北西"
+                            },
+                            {
+                              "value": "北西"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "最大風速",
+                      "localAreas": [
+                        {
+                          "localAreaName": "玄界灘",
+                          "values": [
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12"
+                          ]
+                        },
+                        {
+                          "localAreaName": "沖ノ島周辺",
+                          "values": [
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12"
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "16",
+                  "levels": [
+                    {
+                      "type": "波危険度",
+                      "localAreas": [
+                        {
+                          "localAreaName": "玄界灘",
+                          "values": [
+                            "00",
+                            "00",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10"
+                          ],
+                          "additions": [
+                            "うねり"
+                          ]
+                        },
+                        {
+                          "localAreaName": "沖ノ島周辺",
+                          "values": [
+                            "00",
+                            "00",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10"
+                          ],
+                          "additions": [
+                            "うねり"
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "continueLevels": [
+                    {
+                      "type": "波危険度",
+                      "localAreas": [
+                        {
+                          "localAreaName": "玄界灘",
+                          "value": "10"
+                        },
+                        {
+                          "localAreaName": "沖ノ島周辺",
+                          "value": "10"
+                        }
+                      ]
+                    }
+                  ],
+                  "properties": [
+                    {
+                      "type": "波高",
+                      "localAreas": [
+                        {
+                          "localAreaName": "玄界灘",
+                          "values": [
+                            "2",
+                            "2",
+                            "2.5",
+                            "2.5",
+                            "2.5",
+                            "3",
+                            "3",
+                            "3",
+                            "3"
+                          ]
+                        },
+                        {
+                          "localAreaName": "沖ノ島周辺",
+                          "values": [
+                            "2",
+                            "2",
+                            "2.5",
+                            "2.5",
+                            "2.5",
+                            "3",
+                            "3",
+                            "3",
+                            "3"
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "code": "4022000",
+              "warnings": [
+                {
+                  "code": "15",
+                  "levels": [
+                    {
+                      "type": "風危険度",
+                      "localAreas": [
+                        {
+                          "localAreaName": "玄界灘",
+                          "values": [
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10"
+                          ]
+                        },
+                        {
+                          "localAreaName": "沖ノ島周辺",
+                          "values": [
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10"
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "continueLevels": [
+                    {
+                      "type": "風危険度",
+                      "localAreas": [
+                        {
+                          "localAreaName": "玄界灘",
+                          "value": "10"
+                        },
+                        {
+                          "localAreaName": "沖ノ島周辺",
+                          "value": "10"
+                        }
+                      ]
+                    }
+                  ],
+                  "properties": [
+                    {
+                      "type": "風向",
+                      "localAreas": [
+                        {
+                          "localAreaName": "玄界灘",
+                          "windDirections": [
+                            {
+                              "value": "北西"
+                            },
+                            {
+                              "value": "北西"
+                            },
+                            {
+                              "value": "北西"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            }
+                          ]
+                        },
+                        {
+                          "localAreaName": "沖ノ島周辺",
+                          "windDirections": [
+                            {
+                              "value": "北西"
+                            },
+                            {
+                              "value": "北西"
+                            },
+                            {
+                              "value": "北西"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "最大風速",
+                      "localAreas": [
+                        {
+                          "localAreaName": "玄界灘",
+                          "values": [
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12"
+                          ]
+                        },
+                        {
+                          "localAreaName": "沖ノ島周辺",
+                          "values": [
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12"
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "16",
+                  "levels": [
+                    {
+                      "type": "波危険度",
+                      "localAreas": [
+                        {
+                          "localAreaName": "玄界灘",
+                          "values": [
+                            "00",
+                            "00",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10"
+                          ],
+                          "additions": [
+                            "うねり"
+                          ]
+                        },
+                        {
+                          "localAreaName": "沖ノ島周辺",
+                          "values": [
+                            "00",
+                            "00",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10"
+                          ],
+                          "additions": [
+                            "うねり"
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "continueLevels": [
+                    {
+                      "type": "波危険度",
+                      "localAreas": [
+                        {
+                          "localAreaName": "玄界灘",
+                          "value": "10"
+                        },
+                        {
+                          "localAreaName": "沖ノ島周辺",
+                          "value": "10"
+                        }
+                      ]
+                    }
+                  ],
+                  "properties": [
+                    {
+                      "type": "波高",
+                      "localAreas": [
+                        {
+                          "localAreaName": "玄界灘",
+                          "values": [
+                            "2",
+                            "2",
+                            "2.5",
+                            "2.5",
+                            "2.5",
+                            "3",
+                            "3",
+                            "3",
+                            "3"
+                          ]
+                        },
+                        {
+                          "localAreaName": "沖ノ島周辺",
+                          "values": [
+                            "2",
+                            "2",
+                            "2.5",
+                            "2.5",
+                            "2.5",
+                            "3",
+                            "3",
+                            "3",
+                            "3"
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "code": "4022300",
+              "warnings": [
+                {
+                  "code": "15",
+                  "levels": [
+                    {
+                      "type": "風危険度",
+                      "localAreas": [
+                        {
+                          "localAreaName": "玄界灘",
+                          "values": [
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10"
+                          ]
+                        },
+                        {
+                          "localAreaName": "沖ノ島周辺",
+                          "values": [
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10"
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "continueLevels": [
+                    {
+                      "type": "風危険度",
+                      "localAreas": [
+                        {
+                          "localAreaName": "玄界灘",
+                          "value": "10"
+                        },
+                        {
+                          "localAreaName": "沖ノ島周辺",
+                          "value": "10"
+                        }
+                      ]
+                    }
+                  ],
+                  "properties": [
+                    {
+                      "type": "風向",
+                      "localAreas": [
+                        {
+                          "localAreaName": "玄界灘",
+                          "windDirections": [
+                            {
+                              "value": "北西"
+                            },
+                            {
+                              "value": "北西"
+                            },
+                            {
+                              "value": "北西"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            }
+                          ]
+                        },
+                        {
+                          "localAreaName": "沖ノ島周辺",
+                          "windDirections": [
+                            {
+                              "value": "北西"
+                            },
+                            {
+                              "value": "北西"
+                            },
+                            {
+                              "value": "北西"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "最大風速",
+                      "localAreas": [
+                        {
+                          "localAreaName": "玄界灘",
+                          "values": [
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12"
+                          ]
+                        },
+                        {
+                          "localAreaName": "沖ノ島周辺",
+                          "values": [
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12"
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "16",
+                  "levels": [
+                    {
+                      "type": "波危険度",
+                      "localAreas": [
+                        {
+                          "localAreaName": "玄界灘",
+                          "values": [
+                            "00",
+                            "00",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10"
+                          ],
+                          "additions": [
+                            "うねり"
+                          ]
+                        },
+                        {
+                          "localAreaName": "沖ノ島周辺",
+                          "values": [
+                            "00",
+                            "00",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10"
+                          ],
+                          "additions": [
+                            "うねり"
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "continueLevels": [
+                    {
+                      "type": "波危険度",
+                      "localAreas": [
+                        {
+                          "localAreaName": "玄界灘",
+                          "value": "10"
+                        },
+                        {
+                          "localAreaName": "沖ノ島周辺",
+                          "value": "10"
+                        }
+                      ]
+                    }
+                  ],
+                  "properties": [
+                    {
+                      "type": "波高",
+                      "localAreas": [
+                        {
+                          "localAreaName": "玄界灘",
+                          "values": [
+                            "2",
+                            "2",
+                            "2.5",
+                            "2.5",
+                            "2.5",
+                            "3",
+                            "3",
+                            "3",
+                            "3"
+                          ]
+                        },
+                        {
+                          "localAreaName": "沖ノ島周辺",
+                          "values": [
+                            "2",
+                            "2",
+                            "2.5",
+                            "2.5",
+                            "2.5",
+                            "3",
+                            "3",
+                            "3",
+                            "3"
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "code": "4022400",
+              "warnings": [
+                {
+                  "code": "15",
+                  "levels": [
+                    {
+                      "type": "風危険度",
+                      "localAreas": [
+                        {
+                          "localAreaName": "玄界灘",
+                          "values": [
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10"
+                          ]
+                        },
+                        {
+                          "localAreaName": "沖ノ島周辺",
+                          "values": [
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10"
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "continueLevels": [
+                    {
+                      "type": "風危険度",
+                      "localAreas": [
+                        {
+                          "localAreaName": "玄界灘",
+                          "value": "10"
+                        },
+                        {
+                          "localAreaName": "沖ノ島周辺",
+                          "value": "10"
+                        }
+                      ]
+                    }
+                  ],
+                  "properties": [
+                    {
+                      "type": "風向",
+                      "localAreas": [
+                        {
+                          "localAreaName": "玄界灘",
+                          "windDirections": [
+                            {
+                              "value": "北西"
+                            },
+                            {
+                              "value": "北西"
+                            },
+                            {
+                              "value": "北西"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            }
+                          ]
+                        },
+                        {
+                          "localAreaName": "沖ノ島周辺",
+                          "windDirections": [
+                            {
+                              "value": "北西"
+                            },
+                            {
+                              "value": "北西"
+                            },
+                            {
+                              "value": "北西"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "最大風速",
+                      "localAreas": [
+                        {
+                          "localAreaName": "玄界灘",
+                          "values": [
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12"
+                          ]
+                        },
+                        {
+                          "localAreaName": "沖ノ島周辺",
+                          "values": [
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12"
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "16",
+                  "levels": [
+                    {
+                      "type": "波危険度",
+                      "localAreas": [
+                        {
+                          "localAreaName": "玄界灘",
+                          "values": [
+                            "00",
+                            "00",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10"
+                          ],
+                          "additions": [
+                            "うねり"
+                          ]
+                        },
+                        {
+                          "localAreaName": "沖ノ島周辺",
+                          "values": [
+                            "00",
+                            "00",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10"
+                          ],
+                          "additions": [
+                            "うねり"
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "continueLevels": [
+                    {
+                      "type": "波危険度",
+                      "localAreas": [
+                        {
+                          "localAreaName": "玄界灘",
+                          "value": "10"
+                        },
+                        {
+                          "localAreaName": "沖ノ島周辺",
+                          "value": "10"
+                        }
+                      ]
+                    }
+                  ],
+                  "properties": [
+                    {
+                      "type": "波高",
+                      "localAreas": [
+                        {
+                          "localAreaName": "玄界灘",
+                          "values": [
+                            "2",
+                            "2",
+                            "2.5",
+                            "2.5",
+                            "2.5",
+                            "3",
+                            "3",
+                            "3",
+                            "3"
+                          ]
+                        },
+                        {
+                          "localAreaName": "沖ノ島周辺",
+                          "values": [
+                            "2",
+                            "2",
+                            "2.5",
+                            "2.5",
+                            "2.5",
+                            "3",
+                            "3",
+                            "3",
+                            "3"
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "code": "4023000",
+              "warnings": [
+                {
+                  "code": "15",
+                  "levels": [
+                    {
+                      "type": "風危険度",
+                      "localAreas": [
+                        {
+                          "localAreaName": "玄界灘",
+                          "values": [
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10"
+                          ]
+                        },
+                        {
+                          "localAreaName": "沖ノ島周辺",
+                          "values": [
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10"
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "continueLevels": [
+                    {
+                      "type": "風危険度",
+                      "localAreas": [
+                        {
+                          "localAreaName": "玄界灘",
+                          "value": "10"
+                        },
+                        {
+                          "localAreaName": "沖ノ島周辺",
+                          "value": "10"
+                        }
+                      ]
+                    }
+                  ],
+                  "properties": [
+                    {
+                      "type": "風向",
+                      "localAreas": [
+                        {
+                          "localAreaName": "玄界灘",
+                          "windDirections": [
+                            {
+                              "value": "北西"
+                            },
+                            {
+                              "value": "北西"
+                            },
+                            {
+                              "value": "北西"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            }
+                          ]
+                        },
+                        {
+                          "localAreaName": "沖ノ島周辺",
+                          "windDirections": [
+                            {
+                              "value": "北西"
+                            },
+                            {
+                              "value": "北西"
+                            },
+                            {
+                              "value": "北西"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "最大風速",
+                      "localAreas": [
+                        {
+                          "localAreaName": "玄界灘",
+                          "values": [
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12"
+                          ]
+                        },
+                        {
+                          "localAreaName": "沖ノ島周辺",
+                          "values": [
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12"
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "16",
+                  "levels": [
+                    {
+                      "type": "波危険度",
+                      "localAreas": [
+                        {
+                          "localAreaName": "玄界灘",
+                          "values": [
+                            "00",
+                            "00",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10"
+                          ],
+                          "additions": [
+                            "うねり"
+                          ]
+                        },
+                        {
+                          "localAreaName": "沖ノ島周辺",
+                          "values": [
+                            "00",
+                            "00",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10"
+                          ],
+                          "additions": [
+                            "うねり"
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "continueLevels": [
+                    {
+                      "type": "波危険度",
+                      "localAreas": [
+                        {
+                          "localAreaName": "玄界灘",
+                          "value": "10"
+                        },
+                        {
+                          "localAreaName": "沖ノ島周辺",
+                          "value": "10"
+                        }
+                      ]
+                    }
+                  ],
+                  "properties": [
+                    {
+                      "type": "波高",
+                      "localAreas": [
+                        {
+                          "localAreaName": "玄界灘",
+                          "values": [
+                            "2",
+                            "2",
+                            "2.5",
+                            "2.5",
+                            "2.5",
+                            "3",
+                            "3",
+                            "3",
+                            "3"
+                          ]
+                        },
+                        {
+                          "localAreaName": "沖ノ島周辺",
+                          "values": [
+                            "2",
+                            "2",
+                            "2.5",
+                            "2.5",
+                            "2.5",
+                            "3",
+                            "3",
+                            "3",
+                            "3"
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "code": "4034500",
+              "warnings": [
+                {
+                  "code": "15",
+                  "levels": [
+                    {
+                      "type": "風危険度",
+                      "localAreas": [
+                        {
+                          "localAreaName": "玄界灘",
+                          "values": [
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10"
+                          ]
+                        },
+                        {
+                          "localAreaName": "沖ノ島周辺",
+                          "values": [
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10"
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "continueLevels": [
+                    {
+                      "type": "風危険度",
+                      "localAreas": [
+                        {
+                          "localAreaName": "玄界灘",
+                          "value": "10"
+                        },
+                        {
+                          "localAreaName": "沖ノ島周辺",
+                          "value": "10"
+                        }
+                      ]
+                    }
+                  ],
+                  "properties": [
+                    {
+                      "type": "風向",
+                      "localAreas": [
+                        {
+                          "localAreaName": "玄界灘",
+                          "windDirections": [
+                            {
+                              "value": "北西"
+                            },
+                            {
+                              "value": "北西"
+                            },
+                            {
+                              "value": "北西"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            }
+                          ]
+                        },
+                        {
+                          "localAreaName": "沖ノ島周辺",
+                          "windDirections": [
+                            {
+                              "value": "北西"
+                            },
+                            {
+                              "value": "北西"
+                            },
+                            {
+                              "value": "北西"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "最大風速",
+                      "localAreas": [
+                        {
+                          "localAreaName": "玄界灘",
+                          "values": [
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12"
+                          ]
+                        },
+                        {
+                          "localAreaName": "沖ノ島周辺",
+                          "values": [
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12"
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "16",
+                  "levels": [
+                    {
+                      "type": "波危険度",
+                      "localAreas": [
+                        {
+                          "localAreaName": "玄界灘",
+                          "values": [
+                            "00",
+                            "00",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10"
+                          ],
+                          "additions": [
+                            "うねり"
+                          ]
+                        },
+                        {
+                          "localAreaName": "沖ノ島周辺",
+                          "values": [
+                            "00",
+                            "00",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10"
+                          ],
+                          "additions": [
+                            "うねり"
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "continueLevels": [
+                    {
+                      "type": "波危険度",
+                      "localAreas": [
+                        {
+                          "localAreaName": "玄界灘",
+                          "value": "10"
+                        },
+                        {
+                          "localAreaName": "沖ノ島周辺",
+                          "value": "10"
+                        }
+                      ]
+                    }
+                  ],
+                  "properties": [
+                    {
+                      "type": "波高",
+                      "localAreas": [
+                        {
+                          "localAreaName": "玄界灘",
+                          "values": [
+                            "2",
+                            "2",
+                            "2.5",
+                            "2.5",
+                            "2.5",
+                            "3",
+                            "3",
+                            "3",
+                            "3"
+                          ]
+                        },
+                        {
+                          "localAreaName": "沖ノ島周辺",
+                          "values": [
+                            "2",
+                            "2",
+                            "2.5",
+                            "2.5",
+                            "2.5",
+                            "3",
+                            "3",
+                            "3",
+                            "3"
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "code": "4038100",
+              "warnings": [
+                {
+                  "code": "15",
+                  "levels": [
+                    {
+                      "type": "風危険度",
+                      "localAreas": [
+                        {
+                          "localAreaName": "響灘",
+                          "values": [
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10"
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "continueLevels": [
+                    {
+                      "type": "風危険度",
+                      "localAreas": [
+                        {
+                          "localAreaName": "響灘",
+                          "value": "10"
+                        }
+                      ]
+                    }
+                  ],
+                  "properties": [
+                    {
+                      "type": "風向",
+                      "localAreas": [
+                        {
+                          "localAreaName": "響灘",
+                          "windDirections": [
+                            {
+                              "value": "北西"
+                            },
+                            {
+                              "value": "北西"
+                            },
+                            {
+                              "value": "北西"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "最大風速",
+                      "localAreas": [
+                        {
+                          "localAreaName": "響灘",
+                          "values": [
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12"
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "16",
+                  "levels": [
+                    {
+                      "type": "波危険度",
+                      "localAreas": [
+                        {
+                          "values": [
+                            "00",
+                            "00",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10"
+                          ],
+                          "additions": [
+                            "うねり"
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "continueLevels": [
+                    {
+                      "type": "波危険度",
+                      "localAreas": [
+                        {
+                          "value": "10"
+                        }
+                      ]
+                    }
+                  ],
+                  "properties": [
+                    {
+                      "type": "波高",
+                      "localAreas": [
+                        {
+                          "values": [
+                            "2",
+                            "2",
+                            "2.5",
+                            "2.5",
+                            "2.5",
+                            "3",
+                            "3",
+                            "3",
+                            "3"
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "code": "4038300",
+              "warnings": [
+                {
+                  "code": "15",
+                  "levels": [
+                    {
+                      "type": "風危険度",
+                      "localAreas": [
+                        {
+                          "localAreaName": "響灘",
+                          "values": [
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10"
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "continueLevels": [
+                    {
+                      "type": "風危険度",
+                      "localAreas": [
+                        {
+                          "localAreaName": "響灘",
+                          "value": "10"
+                        }
+                      ]
+                    }
+                  ],
+                  "properties": [
+                    {
+                      "type": "風向",
+                      "localAreas": [
+                        {
+                          "localAreaName": "響灘",
+                          "windDirections": [
+                            {
+                              "value": "北西"
+                            },
+                            {
+                              "value": "北西"
+                            },
+                            {
+                              "value": "北西"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            },
+                            {
+                              "value": "北"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "最大風速",
+                      "localAreas": [
+                        {
+                          "localAreaName": "響灘",
+                          "values": [
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12",
+                            "12"
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "16",
+                  "levels": [
+                    {
+                      "type": "波危険度",
+                      "localAreas": [
+                        {
+                          "values": [
+                            "00",
+                            "00",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10",
+                            "10"
+                          ],
+                          "additions": [
+                            "うねり"
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "continueLevels": [
+                    {
+                      "type": "波危険度",
+                      "localAreas": [
+                        {
+                          "value": "10"
+                        }
+                      ]
+                    }
+                  ],
+                  "properties": [
+                    {
+                      "type": "波高",
+                      "localAreas": [
+                        {
+                          "values": [
+                            "2",
+                            "2",
+                            "2.5",
+                            "2.5",
+                            "2.5",
+                            "3",
+                            "3",
+                            "3",
+                            "3"
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

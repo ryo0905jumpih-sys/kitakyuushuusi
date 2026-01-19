@@ -21,7 +21,8 @@ HISTORY_FILE = "data/history.csv"
 TENKOU_URL = "https://www.data.jma.go.jp/stats/data/mdrr/tenkou/alltable/pre00.html"
 # Advisories
 WARNING_JSON_URL = "https://www.jma.go.jp/bosai/warning/data/warning/400000.json"
-AREA_CODE_KITAKYUSHU = "4010100"
+# 北九州地方のコード (4010000) を使用するように更新
+AREA_CODE_KITAKYUSHU_REGION = "4010000"
 
 def get_confirmed_3day_precip():
     """
@@ -147,17 +148,26 @@ def get_preliminary_30day_precip():
         return 0.0
 
 def get_advisories():
+    """
+    Checks for active advisories in Kitakyushu Region.
+    14: 乾燥注意報 (Dry)
+    15 or 06: 強風注意報 (Strong Wind)
+    """
     is_dry = False
     is_strong_wind = False
     try:
-        resp = requests.get(WARNING_JSON_URL, timeout=10)
+        # キャッシュ回避のためタイムスタンプを付与
+        url = f"{WARNING_JSON_URL}?_={int(datetime.datetime.now().timestamp())}"
+        resp = requests.get(url, timeout=10)
         data = resp.json()
+        
         target_area = None
         if 'areaTypes' in data:
             for at in data['areaTypes']:
                 areas = at.get('areas', [])
                 for a in areas:
-                    if a.get('code') == AREA_CODE_KITAKYUSHU:
+                    # 北九州地方 (4010000) を探す
+                    if a.get('code') == AREA_CODE_KITAKYUSHU_REGION:
                         target_area = a
                         break
                 if target_area: break
@@ -166,21 +176,32 @@ def get_advisories():
             for w in target_area['warnings']:
                 code = w.get('code')
                 status = w.get('status')
+                # status が '発表' か '継続' の場合に有効とみなす
                 if status in ['発表', '継続']:
-                    if code == '14': is_dry = True
-                    if code == '06': is_strong_wind = True
+                    if code == '14': 
+                        is_dry = True
+                    # 強風注意報はコード 06 または 15 (地方サマリ用) をチェック
+                    if code in ['06', '15']: 
+                        is_strong_wind = True
+                        
+        # 念のため headlineText も確認（フォールバック）
+        headline = data.get('headlineText', '')
+        if "強風" in headline and "北九州" in headline:
+            is_strong_wind = True
+            
     except Exception as e:
         print(f"Error checking advisories: {e}")
     return is_dry, is_strong_wind
 
 def main():
     sys.stdout.reconfigure(encoding='utf-8')
-    print("--- Weather Condition Auto Judgment (Back to Yahata) ---")
+    print("--- Weather Condition Auto Judgment (Region Warning Mode) ---")
     current_time = datetime.datetime.now(pytz.timezone('Asia/Tokyo'))
     print(f"Execution Time: {current_time}")
 
     p3d, p3d_source = get_confirmed_3day_precip()
     p30d = get_preliminary_30day_precip()
+    p30d = p30d if p30d is not None else 0.0 # Safety
     print(f"Precipitation: 3-Day({p3d_source})={p3d}mm, 30-Day={p30d}mm")
     
     is_dry, is_strong_wind = get_advisories()
@@ -188,12 +209,15 @@ def main():
     
     # Logic
     is_level1 = False
+    # 条件1: 前3日<=1mm かつ 前30日<=30mm
+    # 条件2: 前3日<=1mm かつ 乾燥注意報
     if (p3d <= 1.0 and p30d <= 30.0) or (p3d <= 1.0 and is_dry):
         is_level1 = True
         
     level = 0
     if is_level1:
         level = 1
+        # 強風注意報があればレベル2へ
         if is_strong_wind:
             level = 2
             
@@ -211,7 +235,7 @@ def main():
         "p30d": p30d,
         "is_dry": is_dry,
         "is_strong_wind": is_strong_wind,
-        "notes": f"前3日={p3d_source}確定値, 前30日=確定値(八幡)"
+        "notes": f"前3日={p3d_source}確定値, 前30日=確定値(八幡), 注意報=北九州地方"
     }
     
     os.makedirs(os.path.dirname(DATA_FILE), exist_ok=True)
