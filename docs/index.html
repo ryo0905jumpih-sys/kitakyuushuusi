@@ -126,7 +126,15 @@
             }
 
             setBooleanStatus('dry-val', data.is_dry);
-            setBooleanStatus('wind-val', data.is_strong_wind);
+
+            // Wind handling with details
+            const windEl = document.getElementById('wind-val');
+            windEl.textContent = data.wind_text || (data.is_strong_wind ? "発表中" : "なし");
+            if (data.is_strong_wind) {
+                windEl.classList.add('active-warning');
+            } else {
+                windEl.classList.remove('active-warning');
+            }
         }
 
         function setBooleanStatus(id, value) {
