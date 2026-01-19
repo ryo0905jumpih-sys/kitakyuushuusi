@@ -110,66 +110,50 @@ def fetch_precip_from_jma(target_dates, prec_no, block_no, page_type='a1'):
         
     return total, daily_precip_map, data_found
 
-def main():
-    # ... (rest of main needs update to handle source name)
-    pass # To avoid overwriting too much, I will edit main() separately or assume this is partial
-
-
-
 def get_preliminary_30day_precip():
     """
-    Fetches 'Last 30 days total' from JMA Tenkou page (Preliminary).
-    Target: Yahata (82056)
+    Fetches the 30-day total precipitation for Yahata, Fukuoka.
+    Target: Yahata (82056) from pre00.html
     """
-    print(f"Fetching preliminary data from: {TENKOU_URL}")
+    print(f"Fetching: {TENKOU_URL}")
     try:
-        resp = requests.get(TENKOU_URL, timeout=10)
-        # Diagnostic confirmed UTF-8 content for this page (unlike others)
-        resp.encoding = 'utf-8' 
+        resp = requests.get(TENKOU_URL, timeout=15)
+        resp.encoding = resp.apparent_encoding
         soup = BeautifulSoup(resp.text, 'html.parser')
         
-        rows = soup.find_all('tr')
-        target_col_index = -1
-        header_found = False
+        # Step 1: Find the target column index for "前30日間合計"
+        # The table has multiple "合計" columns for different periods.
+        target_col_idx = 6 # Default fallback for index 6 in data row
+        for tr in soup.find_all('tr'):
+            h_txts = [c.get_text(strip=True) for c in tr.find_all(['th', 'td'])]
+            if '前30日間合計' in h_txts:
+                # Basic mapping: Index 2(10d)->2, Index 3(20d)->4, Index 4(30d)->6
+                h_idx = h_txts.index('前30日間合計')
+                target_col_idx = (h_idx - 2) * 2 + 2
+                print(f"Header found at index {h_idx}. Data column target: {target_col_idx}")
+                break
         
-        # 1. Header Search (Optional/Verification)
-        # Based on user feedback and diagnostics, the target column for "30-day" (or equivalent required period) is likely Index 6.
-        # Header parsing was unstable due to rowspan/colspan or encoding issues.
-        target_col_index = 6 
-
-
-        # 2. Find Data for Yahata
-        for row in rows:
+        # Step 2: Search for the Yahata (Fukuoka) row
+        for row in soup.find_all('tr'):
             cols = row.find_all(['th', 'td'])
+            txts = [c.get_text(strip=True) for c in cols]
+            if len(txts) < 2: continue
             
-            # Check for Yahata (specifically in Fukuoka) to avoid Akita's Hachimantai
-            found_yahata = False
-            row_text = row.text
+            # Row structure: [Pref, City, 10dVal, 10dRatio, 20dVal, 20dRatio, 30dVal, 30dRatio, ...]
+            pref = txts[0]
+            city = txts[1]
             
-            # Must contain Yahata AND Fukuoka (or Kitakyushu/Chikugo/etc if needed)
-            if "八幡" in row_text and ("福岡" in row_text or "北九州" in row_text):
-                found_yahata = True
-            
-            if found_yahata:
-                print(f"Found Fukuoka Yahata row.")
-                # If header logic failed, let's look for the value user mentioned?
-                # No, that's cheating.
-                # Let's inspect columns.
-                vals = [c.text.strip() for c in cols]
-                print(f"Yahata Cols: {vals}")
-                
-                # If we have a target index
-                if target_col_index != -1 and len(cols) > target_col_index:
-                    val_text = cols[target_col_index].text.strip()
-                    val_text = re.sub(r'[\)\]]', '', val_text) 
-                    clean = re.sub(r'[^\d\.]', '', val_text)
-                    if clean:
-                        return float(clean)
-                        
+            if "八幡" in city and ("福岡" in pref or "福岡" in city or "北九州" in pref or "北九州" in city):
+                print(f"Matching Yahata Row: {txts}")
+                if len(txts) > target_col_idx:
+                    val_str = txts[target_col_idx]
+                    # Extract only digits and decimal point
+                    clean_val = re.sub(r'[^0-9.]', '', val_str)
+                    if clean_val:
+                        return float(clean_val)
         return 0.0
-        
     except Exception as e:
-        print(f"Error fetching preliminary data: {e}")
+        print(f"Error in get_preliminary_30day_precip: {e}")
         return 0.0
 
 
