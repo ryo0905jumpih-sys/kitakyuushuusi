@@ -27,14 +27,26 @@ async def run():
 def export_env():
     # Extract data for GitHub Actions ENV
     try:
+        if not os.path.exists("docs/data.json"):
+            print("docs/data.json not found")
+            return
+            
         with open("docs/data.json", "r", encoding="utf-8") as f:
             data = json.load(f)
             
-        with open(os.environ.get("GITHUB_ENV", "dev_env.txt"), "a", encoding="utf-8") as f:
-            f.write(f"REPORT_DATE={data['updated_at'].split(' ')[0]}\n")
-            f.write(f"UPDATED_AT={data['updated_at']}\n")
-            f.write(f"RESULT_TEXT={data['result_text']}\n")
-            f.write(f"JUDGMENT_LEVEL={data['level']}\n")
+        env_file = os.environ.get("GITHUB_ENV")
+        if env_file:
+            with open(env_file, "a", encoding="utf-8") as f:
+                f.write(f"REPORT_DATE={data['updated_at'].split(' ')[0]}\n")
+                f.write(f"UPDATED_AT={data['updated_at']}\n")
+                f.write(f"RESULT_TEXT={data['result_text']}\n")
+                f.write(f"JUDGMENT_LEVEL={data['level']}\n")
+                f.write(f"P3D={data['p3d']}\n")
+                f.write(f"P30D={data['p30d']}\n")
+                f.write(f"WIND_TEXT={data['wind_text']}\n")
+                f.write(f"ADVISORY_DRY={'あり' if data['is_dry'] else 'なし'}\n")
+        else:
+            print("GITHUB_ENV not set, skipping export")
     except Exception as e:
         print(f"Error exporting env: {e}")
 
