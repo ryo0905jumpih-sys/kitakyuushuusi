@@ -35,6 +35,13 @@ jobs:
       run: |
         python src/screenshot.py
 
+    - name: Debug ENV
+      run: |
+        echo "RESULT_TEXT: ${{ env.RESULT_TEXT }}"
+        echo "UPDATED_AT: ${{ env.UPDATED_AT }}"
+        echo "P3D: ${{ env.P3D }}"
+        echo "P30D: ${{ env.P30D }}"
+
     - name: Commit and Push changes
       run: |
         git config --local user.email "action@github.com"
@@ -44,16 +51,17 @@ jobs:
         git push
 
     - name: Send mail
-      if: success()
-      uses: dawidd6/action-send-mail@v3
+      if: success() && env.RESULT_TEXT != ''
+      uses: dawidd6/action-send-mail@v4
       with:
         server_address: smtp.gmail.com
         server_port: 465
         username: ${{secrets.MAIL_USERNAME}}
         password: ${{secrets.MAIL_PASSWORD}}
-        subject: 【林野火災条件判定】${{env.RESULT_TEXT}} (${{env.UPDATED_AT}})
+        subject: "【林野火災条件判定】${{env.RESULT_TEXT}} (${{env.UPDATED_AT}})"
         to: shou-yobou@city.kitakyushu.lg.jp
-        from: 林野火災予報自動判定システム <${{secrets.MAIL_USERNAME}}>
+        from: "林野火災予報自動判定システム <${{secrets.MAIL_USERNAME}}>"
+        secure: true
         body: |
           関係各位
 
