@@ -4,15 +4,17 @@
     --text-main: #333333;
     --text-sub: #666666;
     --primary-color: #0056b3;
-    
+
     --level-0-color: #28a745;
     --level-0-bg: #e6f9ed;
-    
-    --level-1-color: #ffc107; /* Yellow/Orange */
+
+    --level-1-color: #ffc107;
+    /* Yellow/Orange */
     --level-1-bg: #fffbf0;
     --level-1-text: #856404;
 
-    --level-2-color: #dc3545; /* Red */
+    --level-2-color: #dc3545;
+    /* Red */
     --level-2-bg: #ffeef0;
     --level-2-text: #721c24;
 }
@@ -45,6 +47,18 @@ header h1 {
     color: var(--text-main);
 }
 
+.location-selector {
+    margin-bottom: 8px;
+}
+
+#location-select {
+    font-size: 1rem;
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+}
+
 .subtitle {
     font-size: 0.9rem;
     color: var(--text-sub);
@@ -54,7 +68,7 @@ header h1 {
 .card {
     background: var(--card-bg);
     border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     padding: 20px;
     margin-bottom: 16px;
 }
@@ -100,23 +114,39 @@ header h1 {
 .level-0 {
     background-color: var(--level-0-bg);
     border-color: var(--level-0-color);
-    color: var(--level-0-color); /* Apply to text primarily */
+    color: var(--level-0-color);
+    /* Apply to text primarily */
 }
-.level-0 #status-text { color: var(--level-0-color); }
+
+.level-0 #status-text {
+    color: var(--level-0-color);
+}
 
 .level-1 {
     background-color: var(--level-1-bg);
     border-color: var(--level-1-color);
 }
-.level-1 #status-text { color: var(--level-1-text); }
-.level-1 #status-icon { color: var(--level-1-color); }
+
+.level-1 #status-text {
+    color: var(--level-1-text);
+}
+
+.level-1 #status-icon {
+    color: var(--level-1-color);
+}
 
 .level-2 {
     background-color: var(--level-2-bg);
     border-color: var(--level-2-color);
 }
-.level-2 #status-text { color: var(--level-2-text); }
-.level-2 #status-icon { color: var(--level-2-color); }
+
+.level-2 #status-text {
+    color: var(--level-2-text);
+}
+
+.level-2 #status-icon {
+    color: var(--level-2-color);
+}
 
 
 /* Details Grid */
@@ -155,6 +185,11 @@ header h1 {
     font-weight: bold;
 }
 
+.alert-val {
+    color: var(--level-2-color);
+    font-weight: bold;
+}
+
 .active-warning {
     color: var(--level-2-color);
     font-weight: bold;
@@ -168,4 +203,65 @@ header h1 {
     font-size: 0.8rem;
     color: #666;
     line-height: 1.5;
+}
+
+/* Calendar Styles */
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+    text-align: center;
+}
+
+.cal-header {
+    font-weight: bold;
+    font-size: 0.8rem;
+    color: var(--text-sub);
+    margin-bottom: 4px;
+}
+
+.cal-day {
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #f0f0f0;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #555;
+    position: relative;
+    cursor: default;
+}
+
+.cal-day.level-0 {
+    background: var(--level-0-bg);
+    color: var(--level-0-color);
+    border: 1px solid var(--level-0-color);
+}
+
+.cal-day.level-1 {
+    background: var(--level-1-bg);
+    color: var(--level-1-text);
+    border: 1px solid var(--level-1-color);
+}
+
+.cal-day.level-2 {
+    background: var(--level-2-bg);
+    color: var(--level-2-text);
+    border: 1px solid var(--level-2-color);
+}
+
+.btn-sm {
+    background: transparent;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 2px 8px;
+}
+
+.btn-sm:hover {
+    background: #eee;
 }

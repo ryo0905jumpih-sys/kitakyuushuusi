@@ -15,7 +15,12 @@
     <div class="container">
         <header>
             <h1>気象条件自動判定システム</h1>
-            <p class="subtitle">北九州市消防局 内部利用 (八幡観測所基準)</p>
+            <div class="location-selector">
+                <select id="location-select">
+                    <option value="" disabled selected>地点を選択...</option>
+                </select>
+            </div>
+            <p class="subtitle" id="subtitle">観測地点データ表示</p>
         </header>
 
         <main>
@@ -30,7 +35,7 @@
 
             <div class="details-grid">
                 <div class="card detail-card">
-                    <h3>降水量 (八幡)</h3>
+                    <h3>降水量 <span id="precip-loc-name" style="font-size: 0.8em; font-weight: normal;"></span></h3>
                     <div class="data-row">
                         <span>前3日 (確定値)</span>
                         <span class="value" id="p3d-val">-- mm</span>
@@ -42,7 +47,7 @@
                 </div>
 
                 <div class="card detail-card">
-                    <h3>気象注意報 (北九州市)</h3>
+                    <h3>気象注意報 <span id="warning-loc-name" style="font-size: 0.8em; font-weight: normal;"></span></h3>
                     <div class="data-row">
                         <span>乾燥注意報</span>
                         <span class="value" id="dry-val">--</span>
@@ -59,81 +64,129 @@
                     ・<strong>注意レベル</strong>: (前3日雨量≤1mm かつ 前30日雨量≤30mm) または (前3日雨量≤1mm かつ 乾燥注意報発表中)<br>
                     ・<strong>警報レベル</strong>: 注意レベル かつ 強風注意報発表中
                 </p>
-                <p class="small">※本システムは気象庁公式データを基に自動判定していますが、最終的な判断は運用に従ってください。作成者:碓木</p>
+                <p class="small" id="notes-content">※本システムは気象庁公式データを基に自動判定していますが、最終的な判断は各署所の運用に従ってください。</p>
             </div>
+            <!-- New Section: Trends and Calendar -->
+            <div class="analysis-section" style="margin-top: 30px;">
+                <div class="card">
+                    <h3>📊 乾燥指数の推移 (30日雨量)</h3>
+                    <div class="chart-container" style="position: relative; height:30vh; width:100%">
+                        <canvas id="trendChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 20px;">
+                    <h3>📅 月間リスク実績</h3>
+                    <div id="calendar-controls"
+                        style="display:flex; justify-content:space-between; margin-bottom:10px; align-items:center;">
+                        <button id="prev-month" class="btn-sm">◀</button>
+                        <span id="calendar-title" style="font-weight:bold; font-size:1.1em;"></span>
+                        <button id="next-month" class="btn-sm">▶</button>
+                    </div>
+                    <div id="calendar-grid" class="calendar-grid">
+                        <!-- Calendar generates here -->
+                    </div>
+                </div>
+            </div>
+
         </main>
     </div>
 
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="data.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            if (window.WEATHER_DATA) {
-                updateUI(window.WEATHER_DATA);
+            // Locate data source
+            let dataMap = null;
+            if (window.WEATHER_DATA_MAP) {
+                dataMap = window.WEATHER_DATA_MAP;
+                initApp(dataMap);
+            } else if (window.WEATHER_DATA) {
+                dataMap = { 'kitakyushu': window.WEATHER_DATA };
+                initApp(dataMap);
             } else {
-                // Fallback for server environment if data.js not present, or just show error
                 fetch('data.json')
                     .then(response => {
                         if (!response.ok) throw new Error("Data not found");
                         return response.json();
                     })
-                    .then(data => {
-                        updateUI(data);
-                    })
+                    .then(data => data.updated_at && data.level !== undefined ? initApp({ 'legacy': data }) : initApp(data))
                     .catch(error => {
                         console.warn('Fetch error:', error);
-                        document.getElementById('status-text').textContent = "データ読込失敗(ローカル規制)";
+                        document.getElementById('status-text').textContent = "データ読込失敗";
                         document.getElementById('status-icon').textContent = "❌";
                     });
             }
+
+            // Load History for Graph & Calendar
+            loadHistory();
         });
+
+        // --- Existing UI Logic ---
+        function initApp(map) {
+            const select = document.getElementById('location-select');
+            select.innerHTML = '';
+            const keys = Object.keys(map);
+            if (keys.length === 0) return;
+
+            keys.forEach(key => {
+                const data = map[key];
+                const opt = document.createElement('option');
+                opt.value = key;
+                opt.textContent = data.label || key;
+                select.appendChild(opt);
+            });
+
+            if (map['kitakyushu']) select.value = 'kitakyushu';
+            else select.value = keys[0];
+
+            select.addEventListener('change', (e) => {
+                if (map[e.target.value]) updateUI(map[e.target.value]);
+            });
+            updateUI(map[select.value]);
+        }
 
         function updateUI(data) {
             const resultCard = document.getElementById('result-card');
             const statusText = document.getElementById('status-text');
             const statusIcon = document.getElementById('status-icon');
 
-            // Update Timestamp
+            document.getElementById('precip-loc-name').textContent = `(${data.label || '指定なし'})`;
+            document.getElementById('warning-loc-name').textContent = `(${data.label || '指定なし'}周辺)`;
             document.getElementById('updated-at').textContent = data.updated_at;
 
-            // Update Result
-            resultCard.classList.remove('loading');
-            resultCard.classList.remove('level-0', 'level-1', 'level-2');
+            resultCard.classList.remove('loading', 'level-0', 'level-1', 'level-2');
             resultCard.classList.add(`level-${data.level}`);
 
             statusText.textContent = data.result_text;
+            if (data.level === 0) statusIcon.textContent = "✔";
+            else if (data.level === 1) statusIcon.textContent = "⚠";
+            else if (data.level === 2) statusIcon.textContent = "🚨";
 
-            if (data.level === 0) {
-                statusIcon.textContent = "✔";
-            } else if (data.level === 1) {
-                statusIcon.textContent = "⚠";
-            } else if (data.level === 2) {
-                statusIcon.textContent = "🚨";
-            }
-
-            // Update Details
-            // P3D
             const p3d = parseFloat(data.p3d).toFixed(1);
-            document.getElementById('p3d-val').textContent = `${p3d} mm`;
-            if (parseFloat(data.p3d) <= 1.0) {
-                document.getElementById('p3d-val').classList.add('alert-val');
-            }
+            const p3dVal = document.getElementById('p3d-val');
+            p3dVal.textContent = `${p3d} mm`;
+            p3dVal.classList.toggle('alert-val', parseFloat(data.p3d) <= 1.0);
 
-            // P30D
             const p30d = parseFloat(data.p30d).toFixed(1);
-            document.getElementById('p30d-val').textContent = `${p30d} mm`;
-            if (parseFloat(data.p30d) <= 30.0) {
-                document.getElementById('p30d-val').classList.add('alert-val');
-            }
+            const p30dVal = document.getElementById('p30d-val');
+            p30dVal.textContent = `${p30d} mm`;
+            p30dVal.classList.toggle('alert-val', parseFloat(data.p30d) <= 30.0);
 
             setBooleanStatus('dry-val', data.is_dry);
 
-            // Wind handling with details
             const windEl = document.getElementById('wind-val');
-            windEl.textContent = data.wind_text || (data.is_strong_wind ? "発表中" : "なし");
-            if (data.is_strong_wind) {
-                windEl.classList.add('active-warning');
-            } else {
-                windEl.classList.remove('active-warning');
+            // Support both old boolean and new text
+            const windText = data.wind_text || (data.is_strong_wind ? "発表中" : "なし");
+            const isActive = data.is_strong_wind || (data.wind_text && data.wind_text !== "なし");
+
+            windEl.textContent = windText;
+            windEl.classList.toggle('active-warning', isActive);
+
+            if (data.notes) {
+                const notesEl = document.getElementById('notes-content');
+                notesEl.innerHTML = `※最終的な判断は各署所の運用に従ってください。<br><small style="color:#999;">(${data.notes})</small>`;
             }
         }
 
@@ -145,6 +198,172 @@
             } else {
                 el.textContent = "なし";
                 el.classList.remove('active-warning');
+            }
+        }
+
+        // --- New Logic: Graph & Calendar ---
+        let historyData = [];
+        let currentCalDate = new Date();
+
+        function loadHistory() {
+            fetch('history.json')
+                .then(r => {
+                    if (!r.ok) throw new Error("No history");
+                    return r.json();
+                })
+                .then(data => {
+                    historyData = data;
+                    renderChart(data);
+                    renderCalendar(currentCalDate);
+                })
+                .catch(e => {
+                    console.log("History load failed:", e);
+                    // Mock data or empty
+                    document.getElementById('calendar-grid').innerHTML = '<p style="text-align:center; padding:20px; color:#999;">履歴データがありません</p>';
+                });
+        }
+
+        // 1. Chart
+        function renderChart(data) {
+            const ctx = document.getElementById('trendChart').getContext('2d');
+
+            // Group by date (take last entry per day)
+            const daily = {};
+            data.forEach(row => {
+                daily[row.date] = row;
+            });
+            const dates = Object.keys(daily).sort().slice(-30); // Last 30 days
+            const labels = dates.map(d => d.slice(5)); // mm-dd
+            const p30dVals = dates.map(d => daily[d].p30d);
+            const p3dVals = dates.map(d => daily[d].p3d);
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: '前30日雨量(mm)',
+                            data: p30dVals,
+                            borderColor: '#3498db',
+                            backgroundColor: 'rgba(52, 152, 219, 0.1)',
+                            fill: true,
+                            yAxisID: 'y'
+                        },
+                        {
+                            label: '前3日雨量(mm)',
+                            data: p3dVals,
+                            borderColor: '#2ecc71',
+                            borderDash: [5, 5],
+                            fill: false,
+                            yAxisID: 'y'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: { display: true, text: '雨量 (mm)' }
+                        }
+                    },
+                    plugins: {
+                        annotation: {
+                            annotations: {
+                                line1: {
+                                    type: 'line',
+                                    yMin: 30,
+                                    yMax: 30,
+                                    borderColor: 'rgba(231, 76, 60, 0.5)',
+                                    borderWidth: 2,
+                                    label: { content: '警戒ライン(30mm)', enabled: true }
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // 2. Calendar
+        document.getElementById('prev-month').addEventListener('click', () => changeMonth(-1));
+        document.getElementById('next-month').addEventListener('click', () => changeMonth(1));
+
+        function changeMonth(delta) {
+            currentCalDate.setMonth(currentCalDate.getMonth() + delta);
+            renderCalendar(currentCalDate);
+        }
+
+        function renderCalendar(date) {
+            const year = date.getFullYear();
+            const month = date.getMonth();
+            document.getElementById('calendar-title').textContent = `${year}年 ${month + 1}月`;
+
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            const daysInMonth = lastDay.getDate();
+            const startingDay = firstDay.getDay(); // 0=Sun
+
+            const grid = document.getElementById('calendar-grid');
+            grid.innerHTML = '';
+
+            // Headers
+            const weeks = ['日', '月', '火', '水', '木', '金', '土'];
+            weeks.forEach(w => {
+                const el = document.createElement('div');
+                el.className = 'cal-header';
+                el.textContent = w;
+                grid.appendChild(el);
+            });
+
+            // Empty pre-slots
+            for (let i = 0; i < startingDay; i++) {
+                grid.appendChild(document.createElement('div'));
+            }
+
+            // Days
+            // Map history to map[YYYY-MM-DD] = max_level
+            const historyMap = {};
+            historyData.forEach(row => {
+                const dayLevel = parseInt(row.level || 0);
+                // If multiple entries, take worst(highest) level
+                if (!historyMap[row.date] || dayLevel > historyMap[row.date]) {
+                    historyMap[row.date] = dayLevel;
+                }
+            });
+
+            for (let d = 1; d <= daysInMonth; d++) {
+                const el = document.createElement('div');
+                el.className = 'cal-day';
+                el.textContent = d;
+
+                // Check status
+                const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+                if (historyMap[dateStr] !== undefined) {
+                    const l = historyMap[dateStr];
+                    el.classList.add(`level-${l}`);
+                    // Add tooltip or symbol
+                    const symbol = l === 2 ? '🚨' : (l === 1 ? '⚠' : '✔');
+                    const badge = document.createElement('span');
+                    badge.textContent = symbol;
+                    badge.style.display = 'block';
+                    badge.style.fontSize = '0.8em';
+                    el.appendChild(badge);
+                }
+
+                // Highlight today
+                const today = new Date();
+                if (year === today.getFullYear() && month === today.getMonth() && d === today.getDate()) {
+                    el.style.border = '2px solid #333';
+                }
+
+                grid.appendChild(el);
             }
         }
     </script>
