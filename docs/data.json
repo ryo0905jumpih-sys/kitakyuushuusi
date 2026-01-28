@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-01-27 08:53",
+  "updated_at": "2026-01-28 08:47",
   "level": 1,
   "result_text": "注意レベル",
   "p3d": 0.0,
@@ -7,5 +7,5 @@
   "is_dry": false,
   "is_strong_wind": false,
   "wind_text": "なし",
-  "notes": "前3日=八幡確定値, 前30日=確定値(八幡), 注意報=北九州地方"
+  "notes": "前3日=八幡確定値, 前30日=速報値(八幡)"
 }
