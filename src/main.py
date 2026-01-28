@@ -97,55 +97,63 @@ def get_preliminary_30day_precip():
 
 def get_advisories():
     is_dry = False
-    is_strong_wind = False
+    is_strong_wind_land = False # 陸上のみの判定用
     wind_locations = []
+    
+    # 海上エリアのコード (響灘: 4010001, 瀬戸内側: 4010002)
+    SEA_AREA_CODES = ["4010001", "4010002"]
+
     try:
         url = f"{WARNING_JSON_URL}?_={int(datetime.datetime.now().timestamp())}"
         data = requests.get(url, timeout=10).json()
         
-        # 1. Summary Check
-        target_summary = None
-        for at in data.get('areaTypes', []):
-            for a in at.get('areas', []):
-                if a.get('code') == AREA_CODE_KITAKYUSHU_REGION:
-                    target_summary = a
-                    break
-            if target_summary: break
-        
-        if target_summary:
-            for w in target_summary.get('warnings', []):
-                code = w.get('code')
-                if w.get('status') in ['発表', '継続']:
-                    if code == '14': is_dry = True
-                    if code in ['06', '15']: is_strong_wind = True
-
-        # 2. Detailed Location Check (from timeSeries)
-        if is_strong_wind and 'timeSeries' in data:
+        # 1. 地域ごとの詳細チェック (timeSeriesから取得)
+        if 'timeSeries' in data:
             for ts in data['timeSeries']:
                 for at in ts.get('areaTypes', []):
                     for a in at.get('areas', []):
                         if a.get('code') == AREA_CODE_KITAKYUSHU_REGION:
                             for w in a.get('warnings', []):
-                                if w.get('code') in ['06', '15']:
+                                code = w.get('code')
+                                # 乾燥注意報 (14)
+                                if code == '14' and w.get('status') in ['発表', '継続']:
+                                    is_dry = True
+                                
+                                # 強風注意報 (06) または 暴風警報 (05 - 一応)
+                                if code in ['06', '04'] and w.get('status') in ['発表', '継続']:
                                     for level in w.get('levels', []):
                                         for la in level.get('localAreas', []):
-                                            # "10" is Advisory level in JMA binary-ish status
-                                            if any(v >= "10" for v in la.get('values', [])):
-                                                loc = la.get('localAreaName')
-                                                if loc: wind_locations.append(loc)
+                                            val = la.get('values', ["00"])[0]
+                                            # "10"以上が発表中
+                                            if val >= "10":
+                                                loc_code = la.get('localAreaCode')
+                                                loc_name = la.get('localAreaName')
+                                                if loc_name:
+                                                    wind_locations.append(loc_name)
+                                                
+                                                # 海上コードではない場合、陸上フラグを立てる
+                                                if loc_code not in SEA_AREA_CODES:
+                                                    is_strong_wind_land = True
         
-        # Fallback if text headlines mention something specific
+        # 重複削除
+        wind_locations = sorted(list(set(wind_locations)))
+
+        # フォールバック (念のため本文からもチェックするが、基本は上記で完結)
         headline = data.get('headlineText', '')
-        if not wind_locations and "強風" in headline and "北九州" in headline:
-            is_strong_wind = True
-            if "響灘" in headline: wind_locations.append("響灘")
-            if "瀬戸内側" in headline: wind_locations.append("瀬戸内側")
-            if not wind_locations: wind_locations.append("北九州地方")
+        if not is_strong_wind_land and "強風" in headline and "北九州" in headline:
+            # 本文に「響灘」しかない場合は除外するなどの簡易チェック
+            if "響灘" in headline and "北九州市" not in headline and "中間市" not in headline:
+                pass 
+            elif "海上" in headline and "陸上" not in headline:
+                pass
+            else:
+                # 判断がつかない場合は安全側に倒すか、現状維持
+                pass
 
     except Exception as e:
         print(f"Error checking advisories: {e}")
         
-    return is_dry, is_strong_wind, sorted(list(set(wind_locations)))
+    return is_dry, is_strong_wind_land, wind_locations
 
 def main():
     sys.stdout.reconfigure(encoding='utf-8')
