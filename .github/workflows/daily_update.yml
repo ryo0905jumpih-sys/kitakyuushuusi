@@ -2,8 +2,8 @@ name: Daily Weather Check
 
 on:
   schedule:
-    # 毎日 8:30 JST = 前日 23:30 UTC
-    - cron: '30 23 * * *'
+    # 毎日 8:15 JST = 前日 23:15 UTC
+    - cron: '15 23 * * *'
   workflow_dispatch:
 
 permissions:
