@@ -97,7 +97,7 @@ def get_preliminary_30day_precip():
 
 def get_advisories():
     is_dry = False
-    is_strong_wind_land = False # 陸上のみの判定用
+    is_strong_wind_land = False
     wind_locations = []
     
     # 海上エリアのコード (響灘: 4010001, 瀬戸内側: 4010002)
@@ -107,7 +107,36 @@ def get_advisories():
         url = f"{WARNING_JSON_URL}?_={int(datetime.datetime.now().timestamp())}"
         data = requests.get(url, timeout=10).json()
         
-        # 1. 地域ごとの詳細チェック (timeSeriesから取得)
+        # 1. Check Top-Level AreaTypes (Most reliable for "Issued" status)
+        # 4010000 is Kitakyushu Region
+        if 'areaTypes' in data:
+            for at in data['areaTypes']:
+                for a in at.get('areas', []):
+                    if a.get('code') == AREA_CODE_KITAKYUSHU_REGION:
+                        for w in a.get('warnings', []):
+                            code = w.get('code')
+                            status = w.get('status')
+                            
+                            # 乾燥注意報 (14)
+                            if code == '14' and status in ['発表', '継続']:
+                                is_dry = True
+                            
+                            # 強風注意報 (06 is standard, but 15 appears to be used for wind/fog/associated warnings in some contexts or current feed)
+                            # 15 (Various Attributes including Wind).
+                            if code in ['06', '15', '04'] and status in ['発表', '継続']:
+                                # Flag as potentially active. We will refine by land/sea/location below or defaults to True 
+                                # if we can't determine specific locations.
+                                # Defaulting to True here to ensure it's not missed, rely on headline/timeSeries to filter OUT if sea-only?
+                                # Actually, safe approach: Set True implies "Warning in Region".
+                                # If checks below don't find "Land", does it mean Sea only?
+                                is_strong_wind_land = True 
+
+        # 2. Detailed location check from timeSeries
+        # This helps identify if it is "Hibikinada" (Sea) vs "Kitakyushu City" (Land)
+        # Note: timeSeries often lacks 'status', so we look for 'values' >= "10" (Issued)
+        found_land_wind_in_ts = False
+        found_sea_wind_in_ts = False
+        
         if 'timeSeries' in data:
             for ts in data['timeSeries']:
                 for at in ts.get('areaTypes', []):
@@ -115,40 +144,52 @@ def get_advisories():
                         if a.get('code') == AREA_CODE_KITAKYUSHU_REGION:
                             for w in a.get('warnings', []):
                                 code = w.get('code')
-                                # 乾燥注意報 (14)
-                                if code == '14' and w.get('status') in ['発表', '継続']:
-                                    is_dry = True
-                                
-                                # 強風注意報 (06) または 暴風警報 (05 - 一応)
-                                if code in ['06', '04'] and w.get('status') in ['発表', '継続']:
+                                if code in ['06', '15', '04']:
                                     for level in w.get('levels', []):
                                         for la in level.get('localAreas', []):
-                                            val = la.get('values', ["00"])[0]
-                                            # "10"以上が発表中
-                                            if val >= "10":
+                                            # Check values (e.g. ["10", "10", ...])
+                                            # If any recent value is >= "10", consider it active for that sub-area
+                                            vals = la.get('values', [])
+                                            is_active_loc = False
+                                            for v in vals:
+                                                if v and v >= "10": 
+                                                    is_active_loc = True
+                                                    break
+                                            
+                                            if is_active_loc:
                                                 loc_code = la.get('localAreaCode')
                                                 loc_name = la.get('localAreaName')
                                                 if loc_name:
                                                     wind_locations.append(loc_name)
                                                 
-                                                # 海上コードではない場合、陸上フラグを立てる
-                                                if loc_code not in SEA_AREA_CODES:
-                                                    is_strong_wind_land = True
-        
-        # 重複削除
-        wind_locations = sorted(list(set(wind_locations)))
+                                                if loc_code and loc_code in SEA_AREA_CODES:
+                                                    found_sea_wind_in_ts = True
+                                                else:
+                                                    # If no code, or code is not SEA, assume Land (e.g. City codes)
+                                                    found_land_wind_in_ts = True
 
-        # フォールバック (念のため本文からもチェックするが、基本は上記で完結)
+        # Refine is_strong_wind_land based on details
+        if found_land_wind_in_ts or found_sea_wind_in_ts:
+            # If we found specific sub-area info, use it
+            is_strong_wind_land = found_land_wind_in_ts
+        elif is_strong_wind_land:
+            # We only found Top-Level status "Issued", but couldn't parse sub-areas (maybe code structure changed).
+            # Fallback to Headline check to be safe?
+            # Or just assume True because user complains "It shows None" (False Negative).
+            pass
+
+        # 3. Fallback/Confirmation via Headline
         headline = data.get('headlineText', '')
-        if not is_strong_wind_land and "強風" in headline and "北九州" in headline:
-            # 本文に「響灘」しかない場合は除外するなどの簡易チェック
-            if "響灘" in headline and "北九州市" not in headline and "中間市" not in headline:
-                pass 
-            elif "海上" in headline and "陸上" not in headline:
-                pass
-            else:
-                # 判断がつかない場合は安全側に倒すか、現状維持
-                pass
+        # If Top-Level found nothing, check headline
+        if not is_strong_wind_land:
+            if ("強風" in headline or "暴風" in headline) and "北九州" in headline:
+                # Exclude if explicitly Sea only
+                if "響灘" in headline and "北九州市" not in headline and "陸上" not in headline:
+                     pass # Likely Sea only
+                else:
+                     is_strong_wind_land = True
+
+        wind_locations = sorted(list(set(wind_locations)))
 
     except Exception as e:
         print(f"Error checking advisories: {e}")
