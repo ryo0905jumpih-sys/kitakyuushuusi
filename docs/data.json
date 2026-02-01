@@ -1,7 +1,7 @@
 {
-  "updated_at": "2026-02-02 05:49",
-  "level": 2,
-  "result_text": "警報レベル",
+  "updated_at": "2026-02-02 06:17",
+  "level": 1,
+  "result_text": "注意レベル",
   "p3d": 0.0,
   "p30d": 8.0,
   "is_dry": true,

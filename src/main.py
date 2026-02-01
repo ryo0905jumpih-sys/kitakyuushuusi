@@ -133,10 +133,12 @@ def get_advisories():
 
         # 2. Detailed location check from timeSeries
         # This helps identify if it is "Hibikinada" (Sea) vs "Kitakyushu City" (Land)
-        # Note: timeSeries often lacks 'status', so we look for 'values' >= "10" (Issued)
         found_land_wind_in_ts = False
         found_sea_wind_in_ts = False
         
+        # Keywords to identify Sea areas by Name
+        sea_keywords = ["響灘", "瀬戸内", "周防灘", "海上"]
+
         if 'timeSeries' in data:
             for ts in data['timeSeries']:
                 for at in ts.get('areaTypes', []):
@@ -147,8 +149,6 @@ def get_advisories():
                                 if code in ['06', '15', '04']:
                                     for level in w.get('levels', []):
                                         for la in level.get('localAreas', []):
-                                            # Check values (e.g. ["10", "10", ...])
-                                            # If any recent value is >= "10", consider it active for that sub-area
                                             vals = la.get('values', [])
                                             is_active_loc = False
                                             for v in vals:
@@ -158,14 +158,18 @@ def get_advisories():
                                             
                                             if is_active_loc:
                                                 loc_code = la.get('localAreaCode')
-                                                loc_name = la.get('localAreaName')
+                                                loc_name = la.get('localAreaName', '')
                                                 if loc_name:
                                                     wind_locations.append(loc_name)
                                                 
-                                                if loc_code and loc_code in SEA_AREA_CODES:
+                                                # Check Code first
+                                                is_sea_by_code = (loc_code and loc_code in SEA_AREA_CODES)
+                                                # Check Name
+                                                is_sea_by_name = any(k in loc_name for k in sea_keywords)
+
+                                                if is_sea_by_code or is_sea_by_name:
                                                     found_sea_wind_in_ts = True
                                                 else:
-                                                    # If no code, or code is not SEA, assume Land (e.g. City codes)
                                                     found_land_wind_in_ts = True
 
         # Refine is_strong_wind_land based on details
@@ -173,45 +177,67 @@ def get_advisories():
             # If we found specific sub-area info, use it
             is_strong_wind_land = found_land_wind_in_ts
         elif is_strong_wind_land:
-            # We only found Top-Level status "Issued", but couldn't parse sub-areas (maybe code structure changed).
-            # Fallback to Headline check to be safe?
-            # Or just assume True because user complains "It shows None" (False Negative).
             pass
 
         # 3. Fallback/Confirmation via Headline
         headline = data.get('headlineText', '')
-        # If Top-Level found nothing, check headline
         if not is_strong_wind_land:
             if ("強風" in headline or "暴風" in headline) and "北九州" in headline:
-                # Exclude if explicitly Sea only
-                if "響灘" in headline and "北九州市" not in headline and "陸上" not in headline:
+                if ("響灘" in headline or "瀬戸内" in headline or "海上" in headline) and "北九州市" not in headline and "陸上" not in headline:
                      pass # Likely Sea only
                 else:
                      is_strong_wind_land = True
+        
+        is_wind_issued = is_strong_wind_land or (len(wind_locations) > 0)
+        
+        # Verify based on collected location names (Double Check)
+        if wind_locations:
+            all_sea = True
+            for loc in wind_locations:
+                if not any(k in loc for k in sea_keywords):
+                    all_sea = False
+                    break
+            
+            if all_sea:
+                is_strong_wind_land = False
+        else:
+             # If no locations found but is_strong_wind_land is True, check headline for exclusive sea
+             if is_strong_wind_land:
+                  if (("海上" in headline or "響灘" in headline or "瀬戸内" in headline) 
+                      and "陸上" not in headline 
+                      and "北九州市" not in headline):
+                       is_strong_wind_land = False
+                       # Also implies is_wind_issued should theoretically be True still (it is issued, just for Sea)
+                       is_wind_issued = True
 
         wind_locations = sorted(list(set(wind_locations)))
 
     except Exception as e:
         print(f"Error checking advisories: {e}")
+        # Default safely
+        is_wind_issued = False
+        is_strong_wind_land = False # Ensure this is also reset on error
         
-    return is_dry, is_strong_wind_land, wind_locations
+    return is_dry, is_wind_issued, is_strong_wind_land, wind_locations
 
 def main():
     sys.stdout.reconfigure(encoding='utf-8')
     current_time = datetime.datetime.now(pytz.timezone('Asia/Tokyo'))
     p3d, p3d_source = get_confirmed_3day_precip()
     p30d = get_preliminary_30day_precip()
-    is_dry, is_strong_wind, wind_locs = get_advisories()
+    is_dry, is_wind_issued, is_wind_land, wind_locs = get_advisories()
     
     is_level1 = (p3d <= 1.0 and p30d <= 30.0) or (p3d <= 1.0 and is_dry)
     level = 0
     if is_level1:
         level = 1
-        if is_strong_wind: level = 2
+        # Upgrade to Level 2 ONLY if LAND wind is present
+        if is_wind_land: level = 2
             
     result_text = "警報レベル" if level == 2 else "注意レベル" if level == 1 else "該当なし"
     
-    wind_text = "あり" if is_strong_wind else "なし"
+    # Display "Present" if ANY wind warning is issued (Sea or Land)
+    wind_text = "あり" if is_wind_issued else "なし"
     if wind_locs:
         wind_text += f" ({'・'.join(wind_locs)})"
 
@@ -222,10 +248,11 @@ def main():
         "p3d": p3d,
         "p30d": p30d,
         "is_dry": is_dry,
-        "is_strong_wind": is_strong_wind,
-        "wind_text": wind_text, # 追加
+        "is_strong_wind": is_wind_issued, # For display purposes mainly (legacy name in JSON)
+        "wind_text": wind_text, 
         "notes": f"前3日={p3d_source}確定値, 前30日=確定値(八幡), 注意報=北九州地方"
     }
+
     
     os.makedirs(os.path.dirname(DATA_FILE), exist_ok=True)
     with open(DATA_FILE, 'w', encoding='utf-8') as f:
@@ -245,7 +272,7 @@ def main():
         writer.writerow([
             current_time.strftime('%Y-%m-%d'),
             current_time.strftime('%H:%M'),
-            level, p3d, p30d, is_dry, is_strong_wind, result_text, p3d_source
+            level, p3d, p30d, is_dry, is_wind_issued, result_text, p3d_source
         ])
 
 if __name__ == "__main__":
