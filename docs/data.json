@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-02-05 08:57",
-  "level": 0,
-  "result_text": "該当なし",
-  "p3d": 3.5,
+  "updated_at": "2026-02-06 08:55",
+  "level": 1,
+  "result_text": "注意レベル",
+  "p3d": 0.0,
   "p30d": 11.5,
   "is_dry": false,
   "is_strong_wind": false,
