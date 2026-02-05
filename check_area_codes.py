@@ -10,3 +10,8 @@ if 'timeSeries' in data:
         for at in ts.get('areaTypes', []):
             for a in at.get('areas', []):
                 print(f"Code: {a.get('code')}, Name: {a.get('name')}")
+                if a.get('code') == '4010000':
+                     # Print local areas if available in warnings or just debug structure
+                     # In timeSeries, structure can be diff.
+                     pass
+

@@ -2,8 +2,8 @@ name: Daily Weather Check
 
 on:
   schedule:
-    # 毎日 8:15 JST = 前日 23:15 UTC
-    - cron: '15 23 * * *'
+    # 毎日 8:00 JST = 前日 23:00 UTC
+    - cron: '0 23 * * *'
   workflow_dispatch:
 
 permissions:
@@ -58,14 +58,14 @@ jobs:
         server_port: 465
         username: ${{secrets.MAIL_USERNAME}}
         password: ${{secrets.MAIL_PASSWORD}}
-        subject: "【林野火災条件判定】${{env.RESULT_TEXT}} (${{env.UPDATED_AT}})"
+        subject: "【気象自動判定（林野）】${{env.RESULT_TEXT}} (${{env.UPDATED_AT}})"
         to: shou-yobou@city.kitakyushu.lg.jp
-        from: "林野火災予報自動判定システム <${{secrets.MAIL_USERNAME}}>"
+        from: "気象自動判定（林野）システム <${{secrets.MAIL_USERNAME}}>"
         secure: true
         body: |
           関係各位
 
-          林野火災気象条件の自動判定結果をお知らせします。
+          気象自動判定（林野）の結果をお知らせします。
 
           ■判定日時: ${{env.UPDATED_AT}}
           ■判定結果: 【${{env.RESULT_TEXT}}】
