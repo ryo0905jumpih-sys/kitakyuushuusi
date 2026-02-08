@@ -77,23 +77,34 @@ def get_preliminary_30day_precip():
         resp = requests.get(TENKOU_URL, timeout=15)
         resp.encoding = resp.apparent_encoding
         soup = BeautifulSoup(resp.text, 'html.parser')
-        target_col_idx = 6 
-        for tr in soup.find_all('tr'):
-            h_txts = [c.get_text(strip=True) for c in tr.find_all(['th', 'td'])]
-            if '前30日間合計' in h_txts:
-                target_col_idx = (h_txts.index('前30日間合計') - 2) * 2 + 2
-                break
+        
+        # Determine the column index for "前30日間合計"
+        # In pre00.html, columns are:
+        # 0:Pref, 1:Station, 2:10d_val, 3:10d_ratio, 4:20d_val, 5:20d_ratio, 6:30d_val, 7:30d_ratio...
+        # 30d value is at index 6.
+        target_col_idx = 6
+        
+        current_pref = ""
         for row in soup.find_all('tr'):
             cols = row.find_all(['th', 'td'])
             txts = [c.get_text(strip=True) for c in cols]
             if len(txts) < 2: continue
-            if txts[1] == "八幡" and "福岡" in txts[0]:
+            
+            # Update current prefecture name (it's only in the first row of each pref)
+            if txts[0]:
+                current_pref = txts[0]
+            
+            # Check station name and prefecture
+            if txts[1] == "八幡" and "福岡" in current_pref:
                 if len(txts) > target_col_idx:
+                    # Remove non-numeric characters (like ')', '*', etc.)
                     clean = re.sub(r'[^0-9.]', '', txts[target_col_idx])
                     if clean: return float(clean)
                 break
         return 0.0
-    except: return 0.0
+    except Exception as e:
+        print(f"Error getting preliminary precip: {e}")
+        return 0.0
 
 def get_advisories():
     is_dry = False
@@ -238,8 +249,29 @@ def main():
     
     # Display "Present" if ANY wind warning is issued (Sea or Land)
     wind_text = "あり" if is_wind_issued else "なし"
-    if wind_locs:
-        wind_text += f" ({'・'.join(wind_locs)})"
+    if is_wind_issued:
+        loc_parts = []
+        if is_wind_land:
+            loc_parts.append("陸上")
+        
+        sea_keywords = ["響灘", "瀬戸内", "周防灘", "海上"]
+        for loc in wind_locs:
+            if any(k in loc for k in sea_keywords):
+                loc_parts.append(loc)
+            elif "北九州市" in loc or "北九州" in loc:
+                if "陸上" not in loc_parts: loc_parts.append("陸上")
+            else:
+                if loc not in loc_parts:
+                    loc_parts.append(loc)
+        
+        if loc_parts:
+            # Format as "あり (陸上・響灘)" etc.
+            unique_locs = sorted(list(set(loc_parts)))
+            # Ensure "陸上" comes first if present for clarity
+            if "陸上" in unique_locs:
+                unique_locs.remove("陸上")
+                unique_locs.insert(0, "陸上")
+            wind_text = f"あり ({'・'.join(unique_locs)})"
 
     output_data = {
         "updated_at": current_time.strftime('%Y-%m-%d %H:%M'),
@@ -248,9 +280,9 @@ def main():
         "p3d": p3d,
         "p30d": p30d,
         "is_dry": is_dry,
-        "is_strong_wind": is_wind_issued, # For display purposes mainly (legacy name in JSON)
+        "is_strong_wind": is_wind_issued, 
         "wind_text": wind_text, 
-        "notes": f"前3日={p3d_source}確定値, 前30日=確定値(八幡), 注意報=北九州地方"
+        "notes": f"前3日={p3d_source}確定値, 前30日=推定値(八幡), 注意報=北九州地方"
     }
 
     
