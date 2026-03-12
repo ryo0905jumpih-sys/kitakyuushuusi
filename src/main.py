@@ -128,18 +128,15 @@ def get_advisories():
                             code = w.get('code')
                             status = w.get('status')
                             
-                            # 乾燥注意報 (14)
-                            if code == '14' and status in ['発表', '継続']:
+                            # 乾燥注意報 (21)
+                            if code == '21' and status in ['発表', '継続']:
                                 is_dry = True
                             
-                            # 強風注意報 (06 is standard, but 15 appears to be used for wind/fog/associated warnings in some contexts or current feed)
-                            # 15 (Various Attributes including Wind).
+                            # 強風注意報 (15, 06, or 04 depending on context)
                             if code in ['06', '15', '04'] and status in ['発表', '継続']:
                                 # Flag as potentially active. We will refine by land/sea/location below or defaults to True 
                                 # if we can't determine specific locations.
-                                # Defaulting to True here to ensure it's not missed, rely on headline/timeSeries to filter OUT if sea-only?
-                                # Actually, safe approach: Set True implies "Warning in Region".
-                                # If checks below don't find "Land", does it mean Sea only?
+                                # Defaulting to True here to ensure it's not missed.
                                 is_strong_wind_land = True 
 
         # 2. Detailed location check from timeSeries
