@@ -154,7 +154,7 @@ def get_advisories():
                         if a.get('code') == AREA_CODE_KITAKYUSHU_REGION:
                             for w in a.get('warnings', []):
                                 code = w.get('code')
-                                if code in ['06', '15', '04']:
+                                if code in ['06', '15', '04', '21']:
                                     for level in w.get('levels', []):
                                         for la in level.get('localAreas', []):
                                             vals = la.get('values', [])
@@ -165,6 +165,9 @@ def get_advisories():
                                                     break
                                             
                                             if is_active_loc:
+                                                if code == '21':
+                                                    is_dry = True
+                                                
                                                 loc_code = la.get('localAreaCode')
                                                 loc_name = la.get('localAreaName', '')
                                                 if loc_name:
@@ -195,6 +198,10 @@ def get_advisories():
                      pass # Likely Sea only
                 else:
                      is_strong_wind_land = True
+        
+        if not is_dry:
+            if "乾燥" in headline and "北九州" in headline:
+                is_dry = True
         
         is_wind_issued = is_strong_wind_land or (len(wind_locations) > 0)
         
