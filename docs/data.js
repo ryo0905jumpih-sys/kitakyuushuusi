@@ -1,11 +1,11 @@
 window.WEATHER_DATA = {
-  "updated_at": "2026-04-07 08:02",
+  "updated_at": "2026-04-08 08:04",
   "level": 0,
   "result_text": "該当なし",
-  "p3d": 13.0,
-  "p30d": 103.0,
-  "is_dry": false,
+  "p3d": 1.5,
+  "p30d": 104.5,
+  "is_dry": true,
   "is_strong_wind": true,
-  "wind_text": "あり (瀬戸内側の海上・響灘)",
+  "wind_text": "あり (陸上)",
   "notes": "前3日=八幡確定値, 前30日=推定値(八幡), 注意報=北九州地方"
 };
