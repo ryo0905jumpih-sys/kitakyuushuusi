@@ -1,11 +1,11 @@
 window.WEATHER_DATA = {
-  "updated_at": "2026-04-14 08:07",
+  "updated_at": "2026-04-15 08:08",
   "level": 0,
   "result_text": "該当なし",
-  "p3d": 0.5,
-  "p30d": 123.5,
+  "p3d": 18.0,
+  "p30d": 141.0,
   "is_dry": false,
-  "is_strong_wind": false,
-  "wind_text": "なし",
+  "is_strong_wind": true,
+  "wind_text": "あり (響灘)",
   "notes": "前3日=八幡確定値, 前30日=推定値(八幡), 注意報=北九州地方"
 };
