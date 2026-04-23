@@ -1,9 +1,9 @@
 window.WEATHER_DATA = {
-  "updated_at": "2026-04-23 08:11",
+  "updated_at": "2026-04-24 08:11",
   "level": 0,
   "result_text": "該当なし",
-  "p3d": 7.5,
-  "p30d": 132.5,
+  "p3d": 49.5,
+  "p30d": 176.5,
   "is_dry": false,
   "is_strong_wind": true,
   "wind_text": "あり (響灘)",
