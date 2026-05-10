@@ -1,9 +1,9 @@
 window.WEATHER_DATA = {
-  "updated_at": "2026-05-10 08:10",
+  "updated_at": "2026-05-11 08:13",
   "level": 2,
   "result_text": "警報レベル",
   "p3d": 0.0,
-  "p30d": 158.5,
+  "p30d": 146.5,
   "is_dry": true,
   "is_strong_wind": true,
   "wind_text": "あり (陸上)",
