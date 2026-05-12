@@ -1,11 +1,11 @@
 window.WEATHER_DATA = {
-  "updated_at": "2026-05-12 08:28",
-  "level": 2,
-  "result_text": "警報レベル",
+  "updated_at": "2026-05-13 08:34",
+  "level": 0,
+  "result_text": "該当なし",
   "p3d": 0.0,
   "p30d": 146.5,
-  "is_dry": true,
-  "is_strong_wind": true,
-  "wind_text": "あり (陸上)",
+  "is_dry": false,
+  "is_strong_wind": false,
+  "wind_text": "なし",
   "notes": "前3日=八幡確定値, 前30日=推定値(八幡), 注意報=北九州地方"
 };
