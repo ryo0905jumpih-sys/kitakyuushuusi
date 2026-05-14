@@ -1,9 +1,9 @@
 window.WEATHER_DATA = {
-  "updated_at": "2026-05-14 08:35",
+  "updated_at": "2026-05-15 08:27",
   "level": 0,
   "result_text": "該当なし",
   "p3d": 0.0,
-  "p30d": 146.0,
+  "p30d": 128.5,
   "is_dry": false,
   "is_strong_wind": false,
   "wind_text": "なし",
