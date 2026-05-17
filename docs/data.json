@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-05-17 08:12",
-  "level": 0,
-  "result_text": "該当なし",
+  "updated_at": "2026-05-18 08:26",
+  "level": 2,
+  "result_text": "警報レベル",
   "p3d": 0.0,
   "p30d": 112.0,
-  "is_dry": false,
-  "is_strong_wind": false,
-  "wind_text": "なし",
+  "is_dry": true,
+  "is_strong_wind": true,
+  "wind_text": "あり (陸上)",
   "notes": "前3日=八幡確定値, 前30日=推定値(八幡), 注意報=北九州地方"
 }
