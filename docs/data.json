@@ -1,9 +1,9 @@
 {
-  "updated_at": "2026-05-18 08:26",
+  "updated_at": "2026-05-19 08:34",
   "level": 2,
   "result_text": "警報レベル",
   "p3d": 0.0,
-  "p30d": 112.0,
+  "p30d": 110.0,
   "is_dry": true,
   "is_strong_wind": true,
   "wind_text": "あり (陸上)",
