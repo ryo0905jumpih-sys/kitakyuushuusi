@@ -119,7 +119,7 @@ def get_advisories():
         data = requests.get(url, timeout=10).json()
         
         # 1. Check Top-Level AreaTypes (Most reliable for "Issued" status)
-        # 4010000 is Kitakyushu Region
+        active_warnings = []
         if 'areaTypes' in data:
             for at in data['areaTypes']:
                 for a in at.get('areas', []):
@@ -128,16 +128,15 @@ def get_advisories():
                             code = w.get('code')
                             status = w.get('status')
                             
-                            # 乾燥注意報 (21)
-                            if code == '21' and status in ['発表', '継続']:
-                                is_dry = True
-                            
-                            # 強風注意報 (15, 06, or 04 depending on context)
-                            if code in ['06', '15', '04'] and status in ['発表', '継続']:
-                                # Flag as potentially active. We will refine by land/sea/location below or defaults to True 
-                                # if we can't determine specific locations.
-                                # Defaulting to True here to ensure it's not missed.
-                                is_strong_wind_land = True 
+                            if status in ['発表', '継続']:
+                                active_warnings.append(code)
+                                # 乾燥注意報 (21)
+                                if code == '21':
+                                    is_dry = True
+                                
+                                # 強風注意報 (15) / 暴風警報 (05)
+                                if code in ['05', '15']:
+                                    is_strong_wind_land = True 
 
         # 2. Detailed location check from timeSeries
         # This helps identify if it is "Hibikinada" (Sea) vs "Kitakyushu City" (Land)
@@ -154,34 +153,25 @@ def get_advisories():
                         if a.get('code') == AREA_CODE_KITAKYUSHU_REGION:
                             for w in a.get('warnings', []):
                                 code = w.get('code')
-                                if code in ['06', '15', '04', '21']:
+                                # ONLY process if this warning is actually active!
+                                if code in active_warnings and code in ['05', '15', '21']:
                                     for level in w.get('levels', []):
                                         for la in level.get('localAreas', []):
-                                            vals = la.get('values', [])
-                                            is_active_loc = False
-                                            for v in vals:
-                                                if v and v >= "10": 
-                                                    is_active_loc = True
-                                                    break
+                                            loc_code = la.get('localAreaCode')
+                                            loc_name = la.get('localAreaName', '')
                                             
-                                            if is_active_loc:
-                                                if code == '21':
-                                                    is_dry = True
-                                                
-                                                loc_code = la.get('localAreaCode')
-                                                loc_name = la.get('localAreaName', '')
-                                                if loc_name:
-                                                    wind_locations.append(loc_name)
-                                                
-                                                # Check Code first
-                                                is_sea_by_code = (loc_code and loc_code in SEA_AREA_CODES)
-                                                # Check Name
-                                                is_sea_by_name = any(k in loc_name for k in sea_keywords)
+                                            if loc_name:
+                                                wind_locations.append(loc_name)
+                                            
+                                            # Check Code first
+                                            is_sea_by_code = (loc_code and loc_code in SEA_AREA_CODES)
+                                            # Check Name
+                                            is_sea_by_name = any(k in loc_name for k in sea_keywords)
 
-                                                if is_sea_by_code or is_sea_by_name:
-                                                    found_sea_wind_in_ts = True
-                                                else:
-                                                    found_land_wind_in_ts = True
+                                            if is_sea_by_code or is_sea_by_name:
+                                                found_sea_wind_in_ts = True
+                                            else:
+                                                found_land_wind_in_ts = True
 
         # Refine is_strong_wind_land based on details
         if found_land_wind_in_ts or found_sea_wind_in_ts:
