@@ -1,11 +1,11 @@
 window.WEATHER_DATA = {
-  "updated_at": "2026-06-15 08:43",
-  "level": 0,
-  "result_text": "該当なし",
+  "updated_at": "2026-06-16 09:08",
+  "level": 1,
+  "result_text": "注意レベル",
   "p3d": 0.0,
-  "p30d": 90.5,
+  "p30d": 0.0,
   "is_dry": false,
   "is_strong_wind": false,
   "wind_text": "なし",
-  "notes": "前3日=八幡確定値, 前30日=推定値(八幡), 注意報=北九州地方"
+  "notes": "前3日=取得失敗確定値, 前30日=推定値(八幡), 注意報=北九州地方"
 };
