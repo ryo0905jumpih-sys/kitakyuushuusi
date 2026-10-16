@@ -1,5 +1,5 @@
 window.WEATHER_DATA = {
-  "updated_at": "2026-10-15 09:53",
+  "updated_at": "2026-10-16 09:46",
   "level": 0,
   "result_text": "該当なし",
   "p3d": 11.0,
